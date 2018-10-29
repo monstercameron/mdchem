@@ -20,5 +20,5 @@ routes:
 API:
     /save       -   POST{uid, level_id, data} sending data
     /data
-        ?type=  -   POST{admin_id, data=[level_id, all_levels] } sending request for data
+        ?type=  -   POST{admin_id, data=git[level_id, all_levels] } sending request for data
     /highscore  -   GET{name, score}
