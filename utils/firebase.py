@@ -14,6 +14,6 @@ def get_user_data(uid):
 def get_user_data_all():
     users = []
     for user in auth.list_users().iterate_all():
-        users.append(user)
+        users.append(user.__dict__)
         print('User: ', user.uid, ',User email:', user.email)
     return users

@@ -1,15 +1,13 @@
 from config.config import app
-from utils.firebase import get_user_data_all
-import json
-from flask import jsonify
-# import routes.index as index
+from routes.index import simple_page
+from routes.login import login
+from API.rest import all_users
 
 
-@app.route('/', methods=['GET'])
-def index():
-    users = get_user_data_all()
-    return jsonify(users[0].__dict__)
-    # return json.dumps(users[0].__dict__)
+app.register_blueprint(simple_page)
+app.register_blueprint(login)
+app.register_blueprint(all_users)
+
 
 if __name__ == '__main__':
     app.run()
