@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://springuser:ThePassword@localhost:3306/db_example'
 app.config['SQLALCHEMY_ECHO'] = True
