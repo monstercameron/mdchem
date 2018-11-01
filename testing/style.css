@@ -4,7 +4,9 @@ html {
 body {
   height: 100%;
   overflow: hidden;
+  font-family: 'Krub', sans-serif;
 }
+
 /*
  * Sidebar
  */
@@ -25,7 +27,44 @@ body {
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
+/* 
+* end sidebar 
+*/
 
 .page {
   font-size: 20px;
 }
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.mission {
+  background-color: rgba(0, 99, 180, 0.8);
+}
+ .bg-medium{
+  background-color: rgba(220, 226, 231, 0.555);
+ }
