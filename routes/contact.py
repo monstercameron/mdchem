@@ -1,25 +1,26 @@
 from flask import Blueprint, render_template, request, redirect, session
 from classes.admin import Admin_test
 
-recover = Blueprint('recover', __name__)
+contact = Blueprint('contact', __name__)
 
 # checks to see if this user has a session cookie
 
 
-@recover.before_request
+@contact.before_request
 def require_login():
     print('require login for endpoint -->', request.endpoint)
     print(session)
     if 'email' in session:
         return redirect('/admin')
 
-# GET - displays the recover form
-# POST - submits the recover form
+# GET - displays the contact form
+# POST - submits the contact form
 
 
-@recover.route('/recover', methods=['GET', 'POST'])
+@contact.route('/contact', methods=['GET', 'POST'])
 def index():
-    title = 'login'
+    title = 'Contact Us!'
     if request.method == 'POST':
         print('POST')
-    return render_template('recover.html', title=title)
+        return render_template('contact.html', title=title, message="Your message was sent!")
+    return render_template('contact.html', title=title)

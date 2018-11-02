@@ -109,7 +109,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
         <!-- recovery page -->
         <div class="row" style="visibility: visible;">
@@ -136,6 +135,39 @@
                             <a href="/login">Do you want to login? </a> | <a href="/register">Do you want to
                                 register?</a>
                         </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- contact form -->
+        <div class="row">
+            <div class="col-sm-8 mx-auto mt-5 mb-5">
+                <form action="/contact" method="post">
+                    <div class="form-group">
+                        <!-- email -->
+                        <div class="form-group">
+                            <label for="email">
+                                Email address</label>
+                            <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                placeholder="Enter email">
+                        </div>
+                        <!-- name -->
+                        <div class="form-group">
+                            <label for="name">
+                                Name</label>
+                            <input name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp"
+                                placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                                <label for="message">Comment:</label>
+                                <textarea name="message" class="form-control" rows="5" id="message"
+                                placeholder="Enter message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary">
+                                Send Message
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

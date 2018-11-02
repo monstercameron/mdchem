@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block login %}
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+    <ul class="navbar-nav">
+        <a class="navbar-brand" href="/">
+            <i class="material-icons md-36">
+                home
+            </i>
+        </a>
+    </ul>
+</nav>
+<div class="container-fluid">
+    {% if message %}
+    <!-- alert -->
+    <div class="row">
+        <div class="container-fluid">
+            <div class="alert alert-success col-8 mx-auto mt-2 text-center">
+                <strong>{{message}}</strong>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- contact form -->
+    <div class="row">
+        <div class="col-sm-8 mx-auto mt-5 mb-5">
+            <form action="/contact" method="post">
+                <div class="form-group">
+                    <!-- email -->
+                    <div class="form-group">
+                        <label for="email">
+                            Email address</label>
+                        <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="Enter email">
+                    </div>
+                    <!-- name -->
+                    <div class="form-group">
+                        <label for="name">
+                            Name</label>
+                        <input name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp"
+                            placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Comment:</label>
+                        <textarea name="message" class="form-control" rows="5" id="message" placeholder="Enter message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
