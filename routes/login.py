@@ -1,13 +1,21 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, session
 from classes.admin import Admin_test
-import os
-
-templates = os.path.dirname(os.getcwd())+'/mdchem/templates'
-static = os.path.dirname(os.getcwd())+'/mdchem/static'
-
-print('static path -->', static)
 
 login = Blueprint('login', __name__)
+
+# checks to see if this user has a session cookie
+
+
+@login.before_request
+def require_login():
+    # allowed_routes = ['login', 'register', 'index', 'static', 'storage']
+    print('endpoint -->', request.endpoint)
+    print(session)
+    if 'email' in session:
+        return redirect('/admin')
+
+# GET - displays the login form
+# POST - submits the login form
 
 
 @login.route('/login', methods=['GET', 'POST'])
@@ -21,6 +29,9 @@ def index():
         pw = request.form['password']
         # query database for user based on the email address submitted in the request
         admin = Admin_test.query.filter_by(email=email).first()
+        # checks is the admin exists
+        if admin == None:
+            return render_template('login.html', title=title, error="email doesn't exists")
         # if the passwords match
         if admin.password == pw:
             title = 'success'
