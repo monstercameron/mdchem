@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "runtimeExecutable": "/snap/bin/chromium",
+      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "request": "launch",
+      "name": "Chromium against localhost",
+      "url": "http://localhost:5500",
+      "webRoot": "${workspaceRoot}",
+      "sourceMaps": false,
+      "smartStep": false
+    }
+  ]
+}

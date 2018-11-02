@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/testing/style.css">
     <link rel="stylesheet" href="/testing/bootstrap-4.1.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="/testing/DataTables/datatables.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Krub" rel="stylesheet">
     <title>Template</title>
 </head>
 
@@ -39,7 +41,8 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="" method="post">
+                    <form action="/logout" method="post">
+                        <input type="hidden" name="{{uid}}">
                         Are you sure you want to logout?
                         <button type="submit" class="btn btn-danger">YES</button>
                     </form>
@@ -57,28 +60,95 @@
             <!-- sidebar -->
             <div class="col-2 h-100 border-right sidebar">
                 <section class="col-12 sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">Link 1</li>
-                        <li class="nav-item">Link 2</li>
-                        <li class="nav-item">Link 3</li>
-                        <li class="nav-item">Link 4</li>
+                    <ul class="nav flex-column text-muted mt-2">
+                        <li class="nav-item mt-3">
+                            <a href="#options" data-toggle="collapse">
+                                <i class="material-icons">
+                                    add_circle_outline
+                                </i>
+                                Data
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <ul id="options" class="nav flex-column text-muted text-center collapse show ">
+                                <li class="nav-item border">
+                                    <a href="">
+                                        Trends
+                                    </a>
+                                </li>
+                                <li class="nav-item border">
+                                    <a href="">
+                                        Statistics
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item mt-3">
+                            <a href="">
+                                <i class="material-icons md-18 border">
+                                    people
+                                </i>
+                                Students
+                            </a>
+                        </li>
+                        <li class="nav-item mt-3">
+                            <a href="">
+                                <i class="material-icons md-18 border">
+                                    list_alt
+                                </i>
+                                settings
+                            </a>
+                        </li>
                     </ul>
                 </section>
             </div>
             <!-- page body -->
             <div class="col-10 sidebar h-100">
-                <main class="page sidebar-sticky h-100">
-                   page body.
+                <main class="page sidebar-sticky p-2">
+                    <table id="example" class="display">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    UID
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    UID
+                                </th>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    UID
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </main>
             </div>
         </div>
     </div>
 
-    <script src="/testing/script.js"></script>
     <script src="/testing/jquery.js"></script>
     <script src="/testing/Chart.js"></script>
     <script src="/testing/DataTables/datatables.js"></script>
     <script src="/testing/bootstrap-4.1.3-dist/js/bootstrap.js"></script>
+    <script src="/testing/script.js"></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ login = Blueprint('login', __name__)
 @login.before_request
 def require_login():
     # allowed_routes = ['login', 'register', 'index', 'static', 'storage']
-    print('endpoint -->', request.endpoint)
+    print('require login for endpoint -->', request.endpoint)
     print(session)
     if 'email' in session:
         return redirect('/admin')
@@ -32,6 +32,7 @@ def index():
         # checks is the admin exists
         if admin == None:
             return render_template('login.html', title=title, error="email doesn't exists")
+        print('admin -->', admin.__dict__)
         # if the passwords match
         if admin.password == pw:
             title = 'success'
