@@ -28,3 +28,14 @@ API:
     /highscore  -   GET  GET{name, score}
 
 &nbsp;
+
+
+## Todo:
+form validation - email, username, passwords
+password hashing, recovery password system
+email notification
+websockets for realtime updates
+javascript design
+data presentation
+charts and organizations
+user data rest api with authentication

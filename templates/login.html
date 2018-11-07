@@ -20,6 +20,16 @@
         </div>
     </div>
     {% endif %}
+    {% if success %}
+    <!-- alert -->
+    <div class="row">
+        <div class="container-fluid">
+            <div class="alert alert-success col-8 mx-auto mt-2 text-center">
+                <strong>{{success}}</strong>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     <!-- login page -->
     <div class="row" style="visibility: ;">
         <div class="col-sm-8 mx-auto mt-5 mb-5">
