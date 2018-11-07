@@ -3,7 +3,7 @@ from flask import jsonify
 # import json
 from flask import Blueprint
 
-all_users = Blueprint('all_users', __name__, template_folder='templates')
+all_users = Blueprint('all_users', __name__)
 
 
 @all_users.route('/api/all-users', methods=['GET'])
