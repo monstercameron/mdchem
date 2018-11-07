@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session
 from classes.admin import Admin_test
+from utils.validation import validate_email, validate_password
+from utils.security import verify_password
 
 login = Blueprint('login', __name__)
 
@@ -26,16 +28,23 @@ def index():
               ',password -->',  request.form['password'])
         # save email and password into variables from the request
         email = request.form['email']
-        pw = request.form['password']
+        password = request.form['password']
+        # validate email
+        if not validate_email(email):
+            return render_template('login.html', title=title, error="Email isn't porperly formatted")
         # query database for user based on the email address submitted in the request
         admin = Admin_test.query.filter_by(email=email).first()
         # checks is the admin exists
         if admin == None:
-            return render_template('login.html', title=title, error="email doesn't exists")
-        print('admin -->', admin.__dict__)
-        # if the passwords match
-        if admin.password == pw:
-            title = 'success'
-            print('current user data -->', admin.__dict__)
-            return render_template('login.html', title=title)
+            return render_template('login.html', title=title, error="Email doesn't exists")
+        # validate password
+        if not validate_password(password):
+            return render_template('login.html', title=title, error="Password error")
+        # if the passwords match sucessful login
+        print('password verification -->', verify_password(admin.password, password))
+        if verify_password(admin.password, password):
+            # adding email to session
+            session['email'] = email
+            print('current admin data -->', admin.__dict__)
+            return redirect('/admin')
     return render_template('login.html', title=title)

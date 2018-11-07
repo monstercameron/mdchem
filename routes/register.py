@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from classes.admin import Admin_test
 from config.config import db
-from utils.validation import validate_email
+from utils.validation import validate_email, validate_password
+from utils.security import hash_password
 
 register = Blueprint('register', __name__)
 
@@ -47,13 +48,17 @@ def index():
             return render_template('register.html', title=title, first=first, last=last, email=email, error=f"your email: {email} wasn't formatted correctly.")
 
         # validete the password format
-        if not validate_email(email):
+        if not validate_password(password):
             return render_template('register.html', title=title, first=first, last=last, email=email, error="your password wasn't secure enough, must contain atleast 1 uppercase, 1 lowercase and 1 number.")
 
         # password, recovery hashing
+        # hashing the password
+        hashed_password = hash_password(password)
+        # hasing the recovery question and secret response
+        hashed_recovery = hash_password(password)
 
         # make admin object
-        admin = Admin_test(email, first + ' ' + last, password, password)
+        admin = Admin_test(email, first + ' ' + last, hashed_password, hashed_recovery)
 
         # insert into database
         db.session.add(admin)

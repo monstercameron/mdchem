@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block admin %}
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top" style="z-index:1031;">
+    <!-- navbar -->
+    <ul class=" navbar-nav text-white">
+        <a class="navbar-brand" href="#">
+            <img src="/static/images/logo.png" class="d-inline-block align-top" width="72" height="" alt="">
+        </a>
+    </ul>
+    <ul class=" navbar-nav text-white ml-auto">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#myModal">
+                LOGOUT
+            </button>
+        </li>
+    </ul>
+</nav>
+<!-- quit modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/logout" method="post">
+                    <input type="hidden" name="{{uid}}">
+                    Are you sure you want to logout?
+                    <button type="submit" class="btn btn-danger">YES</button>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- page body -->
+<div class="container-fluid h-100">
+    <div class="row h-100 fixed-top">
+        <!-- sidebar -->
+        <div class="col-2 h-100 border-right sidebar">
+            <section class="col-12 sidebar-sticky">
+                <ul class="nav flex-column text-muted mt-2">
+                    <li class="nav-item mt-3">
+                        <a href="#options" data-toggle="collapse">
+                            <i class="material-icons">
+                                add_circle_outline
+                            </i>
+                            Data
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <ul id="options" class="nav flex-column text-muted text-center collapse show ">
+                            <li class="nav-item border">
+                                <a href="">
+                                    Trends
+                                </a>
+                            </li>
+                            <li class="nav-item border">
+                                <a href="">
+                                    Statistics
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item mt-3">
+                        <a href="">
+                            <i class="material-icons md-18 border">
+                                people
+                            </i>
+                            Students
+                        </a>
+                    </li>
+                    <li class="nav-item mt-3">
+                        <a href="">
+                            <i class="material-icons md-18 border">
+                                list_alt
+                            </i>
+                            settings
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <!-- page body -->
+        <div class="col-10 sidebar h-100">
+            <main class="page sidebar-sticky p-2">
+                <table id="example" class="display">
+                    <thead>
+                        <tr>
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                UID
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                UID
+                            </th>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                UID
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </main>
+        </div>
+    </div>
+</div>
+{% endblock %}
