@@ -73,7 +73,7 @@ function fillStudentTable(response) {
   });
 
   //init datatable after data is loaded
-  $("#example").DataTable();
+  $("#student-table").DataTable();
 }
 
 // display the error
@@ -81,7 +81,7 @@ function fillStudentTableError(response) {
   console.log(response);
 
   //hide the missing table
-  $("#example").hide();
+  $("#student-container").hide();
 
   //select the api-error jumbotron
   let error = document.querySelector("#api-error")
