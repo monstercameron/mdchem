@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top" style="z-index:1031;">
         <!-- navbar -->
         <ul class=" navbar-nav text-white">
-            <a class="navbar-brand" href="#">
+            <a id="dashboard" class="navbar-brand" href="#">
                 <img src="/static/images/logo.png" class="d-inline-block align-top" width="72" height="" alt="">
             </a>
         </ul>
@@ -72,19 +72,19 @@
                         <li class="nav-item">
                             <ul id="options" class="nav flex-column text-muted text-center collapse show ">
                                 <li class="nav-item border">
-                                    <a href="">
+                                    <a id="trends" href="#">
                                         Trends
                                     </a>
                                 </li>
                                 <li class="nav-item border">
-                                    <a href="">
+                                    <a id="stats" href="#">
                                         Statistics
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item mt-3">
-                            <a href="">
+                            <a href="#" id="students">
                                 <i class="material-icons md-18 border">
                                     people
                                 </i>
@@ -92,7 +92,7 @@
                             </a>
                         </li>
                         <li class="nav-item mt-3">
-                            <a href="">
+                            <a href="#" id="settings">
                                 <i class="material-icons md-18 border">
                                     list_alt
                                 </i>
@@ -104,41 +104,86 @@
             </div>
             <!-- page body -->
             <div class="col-10 sidebar h-100">
-                <main class="page sidebar-sticky p-2">
-                    <table id="example" class="display">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Email
-                                </th>
+                <main class="page sidebar-sticky p-2 pt-4">
+                    <!-- landing page -->
+                    <div id="landing-view" class="container-fluid">
+                        <div class="col-sm-auto mx-auto">
+                            <div class="jumbotron">
+                            <img src="/static/images/logo.png" class="d-inline-block align-top" width="" height="128"
+                                alt="">
+                                <h1>Welcome to your dashboard</h1>
+                                <H3>News:</H3>
+                                <ul class="news-feed">
+                                    <li>
+                                        11.08.2018, added news feed
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- student list page -->
+                    <div id="student-view" class="container-fluid collapse">
+                        <div class="jumbotron">
+                            <h1>
+                                Student data:
+                            </h1>
+                            <table id="example" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Email
+                                        </th>
 
-                                <th>
-                                    UID
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    Email
-                                </th>
-                                <th>
-                                    UID
-                                </th>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>
-                                    Email
-                                </th>
+                                        <th>
+                                            UID
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="student-list">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>
+                                            Email
+                                        </th>
 
-                                <th>
-                                    UID
-                                </th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                        <th>
+                                            UID
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div id="api-error" class="container-fluid collapse mx-auto">
+                            <div class="jumbotron text-center">
+                                <h1 class="display-4">oops!</h1>
+                                <p class="lead">
+                                    Can't connect to API, contact administrator.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- settings page -->
+                    <div id="setting-view" class="container-fluid collapse">
+                        <div class="jumbotron">
+                            <h1>Settings:</h1>
+                            <div class="form-group">
+                                <input class="btn btn-danger" type="button" value="Reset">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- trend page -->
+                    <div id="trend-view" class="container-fluid collapse">
+                        <div class="jumbotron">
+                            <h1>Trends:</h1>
+                        </div>
+                    </div>
+                    <!-- stats page -->
+                    <div id="stat-view" class="container-fluid collapse">
+                        <div class="jumbotron">
+                            <h1>Stats:</h1>
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>
