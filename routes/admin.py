@@ -23,4 +23,4 @@ def index():
     title = 'admin'
     if request.method == 'POST':
         print('Admin - post')
-    return render_template('admin.html', title=title)
+    return render_template('admin.html', title=title, secret=session['email'])

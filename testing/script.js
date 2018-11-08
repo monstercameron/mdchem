@@ -52,9 +52,13 @@ students.addEventListener("click", function () {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": "test"
+        "Authorization": document.querySelector('#secret').innerHTML
       },
       body: ""
+    })
+    .then(function (response) {
+      console.log("Response code: " + response.status + ' ' + response.statusText);
+      return response;
     })
     .then(response => response.json())
     .then(response => fillStudentTable(response))
@@ -65,6 +69,7 @@ students.addEventListener("click", function () {
 // get student data then build the table
 function fillStudentTable(response) {
   console.log(response)
+
   let studentList = document.querySelector(".student-list");
 
   //loop through the array object and append a new row to the student table
@@ -88,11 +93,6 @@ function fillStudentTableError(response) {
 
   // show the api-error jumbotron
   error.classList.remove("collapse");
-}
-
-// hide all views except target
-function hide_all_except(target) {
-
 }
 
 // hide all views except target
