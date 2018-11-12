@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session
 from classes.admin import Admin_test
+import uuid
+from config.config import tokens
 
 admin = Blueprint('admin', __name__)
 
@@ -23,4 +25,10 @@ def index():
     title = 'admin'
     if request.method == 'POST':
         print('Admin - post')
-    return render_template('admin.html', title=title, secret=session['email'])
+
+
+#     if not request.form['secret']:
+#         token = uuid.uuid4().hex
+
+#     tokens.append(token)
+    return render_template('admin.html', title=title, email=session['email'], secret=tokens[session['email']])

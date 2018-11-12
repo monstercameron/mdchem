@@ -1,5 +1,6 @@
 from flask import Blueprint, request, redirect, session
 from classes.admin import Admin_test
+from config.config import tokens
 
 logout = Blueprint('logout', __name__)
 
@@ -18,4 +19,5 @@ def require_login():
 
 @logout.route('/logout', methods=['GET', 'POST'])
 def index():
+    tokens[session['email']] = ''
     return redirect('/')

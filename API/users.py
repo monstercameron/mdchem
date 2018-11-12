@@ -2,6 +2,7 @@ from flask import request, session, Response
 from utils.firebase import get_user_data_all
 from flask import jsonify
 from flask import Blueprint
+from config.config import tokens
 
 users = Blueprint('users', __name__,)
 
@@ -13,8 +14,9 @@ def index():
 
     session['email'] = 'mr.e.cameron@gmail.com'
     print('session -->', session)
+    print('tokens -->', tokens[session['email']])
 
-    if request.headers['Authorization'] not in session['email']:
+    if request.headers['Authorization'] not in tokens[session['email']]:
         response = Response(status=401)
         response.data = '{"message":"unauthorized"}'
 

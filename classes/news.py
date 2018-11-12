@@ -7,7 +7,7 @@ class News(db.Model):
     target = db.Column(db.String(120))
     message = db.Column(db.String(255))
 
-    def __init__(self, date, message, target):
+    def __init__(self, date, target, message):
         self.date = date
-        self.message = message
         self.target = target
+        self.message = message

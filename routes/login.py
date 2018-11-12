@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, redirect, session
 from classes.admin import Admin_test
 from utils.validation import validate_email, validate_password
 from utils.security import verify_password
+from config.config import tokens
+import uuid
 
 login = Blueprint('login', __name__)
 
@@ -45,6 +47,7 @@ def index():
         if verify_password(admin.password, password):
             # adding email to session
             session['email'] = email
+            tokens[session['email']] = uuid.uuid4().hex
             print('current admin data -->', admin.__dict__)
             return redirect('/admin')
     return render_template('login.html', title=title)
