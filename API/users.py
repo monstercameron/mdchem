@@ -19,6 +19,8 @@ def index():
     admin = Admin_test.query.filter_by(email=email).first()
     token_store = Token.query.filter_by(owner_id=admin.id).first()
 
+    print(token, token_store.token)
+
     if token not in token_store.token:
         response = Response(status=401)
         response.data = '{"message":"unauthorized"}'

@@ -4,7 +4,7 @@ html {
 body {
   height: 100%;
   overflow: hidden;
-  font-family: 'Krub', sans-serif;
+  font-family: "Krub", sans-serif;
 }
 
 /*
@@ -65,6 +65,14 @@ body {
 .mission {
   background-color: rgba(0, 99, 180, 0.8);
 }
- .bg-medium{
+.bg-medium {
   background-color: rgba(220, 226, 231, 0.555);
- }
+}
+
+#email {
+  text-transform: uppercase;
+}
+
+.code-text {
+  font-size: 20px;
+}
