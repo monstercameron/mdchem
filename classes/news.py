@@ -4,8 +4,10 @@ from config.config import db
 class News(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(120))
+    target = db.Column(db.String(120))
     message = db.Column(db.String(255))
 
-    def __init__(self, date, damessageta):
+    def __init__(self, date, message, target):
         self.date = date
         self.message = message
+        self.target = target

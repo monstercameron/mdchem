@@ -15,17 +15,17 @@ def index():
     print('session -->', session)
 
     if request.headers['Authorization'] not in session['email']:
-        message = {'status': 401, 'message': 'unauthorized'}
-        response = jsonify(message)
+        response = Response(status=401)
+        response.data = '{"message":"unauthorized"}'
 
     elif request.method in allowed_methods:
         users = get_user_data_all()
-        message = {'status':200, 'users':users}
+        message = {'users':users}
         response = jsonify(users)
 
     else:
-        message = {'status': 405, 'message': 'method not allowed'}
-        response = jsonify(message)
+        response = Response(status=405)
+        response.data = '{"message":"method not allowed"}'
 
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

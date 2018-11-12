@@ -1,8 +1,14 @@
-var listOfViews = ['#landing-view', '#student-view', '#setting-view', '#trend-view', '#stat-view'];
+var listOfViews = [
+  "#landing-view",
+  "#student-view",
+  "#setting-view",
+  "#trend-view",
+  "#stat-view"
+];
 
 //dashboard onclick listener
 var dashboard = document.querySelector("#dashboard");
-dashboard.addEventListener("click", function () {
+dashboard.addEventListener("click", function() {
   // hiding all views
   hide_all();
   // shows the student list view
@@ -11,7 +17,7 @@ dashboard.addEventListener("click", function () {
 
 //settings page onclick listener
 var settings = document.querySelector("#settings");
-settings.addEventListener("click", function () {
+settings.addEventListener("click", function() {
   // hiding all views
   hide_all();
   // shows the settings page view
@@ -20,7 +26,7 @@ settings.addEventListener("click", function () {
 
 //trends page onclick listener
 var trends = document.querySelector("#trends");
-trends.addEventListener("click", function () {
+trends.addEventListener("click", function() {
   // hiding all views
   hide_all();
   // shows the trends view
@@ -29,7 +35,7 @@ trends.addEventListener("click", function () {
 
 //stats page onclick listener
 var stats = document.querySelector("#stats");
-stats.addEventListener("click", function () {
+stats.addEventListener("click", function() {
   // hiding all views
   hide_all();
   // shows the student list view
@@ -38,7 +44,7 @@ stats.addEventListener("click", function () {
 
 //student table onclick listener
 var students = document.querySelector("#students");
-students.addEventListener("click", function () {
+students.addEventListener("click", function() {
   // hiding all views
   hide_all();
 
@@ -47,16 +53,18 @@ students.addEventListener("click", function () {
 
   // fetch data to fill student table
   fetch("http://localhost:5000/api/users", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": document.querySelector('#secret').innerHTML
-      },
-      body: ""
-    })
-    .then(function (response) {
-      console.log("Response code: " + response.status + ' ' + response.statusText);
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: document.querySelector("#secret").innerHTML
+    },
+    body: ""
+  })
+    .then(function(response) {
+      console.log(
+        "Response code: " + response.status + " " + response.statusText
+      );
       return response;
     })
     .then(response => response.json())
@@ -66,13 +74,14 @@ students.addEventListener("click", function () {
 
 // get student data then build the table
 function fillStudentTable(response) {
-  console.log(response)
+  console.log(response);
 
   let studentList = document.querySelector(".student-list");
 
   //loop through the array object and append a new row to the student table
   response.forEach(element => {
-    studentList.innerHTML += "<tr><th>" + element.email + "</th><th>" + element.UID + "</th></tr>"
+    studentList.innerHTML +=
+      "<tr><th>" + element.email + "</th><th>" + element.UID + "</th></tr>";
   });
 
   //init datatable after data is loaded
@@ -87,7 +96,7 @@ function fillStudentTableError(response) {
   $("#student-container").hide();
 
   //select the api-error jumbotron
-  let error = document.querySelector("#api-error")
+  let error = document.querySelector("#api-error");
 
   // show the api-error jumbotron
   error.classList.remove("collapse");
@@ -100,21 +109,53 @@ function hide_all() {
   });
 }
 
-// fetch data to fill student table
-fetch("http://localhost:5000/api/save", {
+var stats = document.querySelector("#stats");
+stats.addEventListener("click", function() {
+// fetch all level data
+fetch("http://localhost:5000/api/save")
+  .then(function(response) {
+    console.log(
+      "Response code: " + response.status + " " + response.statusText
+    );
+    return response;
+  })
+  .then(response => response.json())
+  .then(function(response) {
+    console.log(response);
+    document.querySelector("#stat-view div div").innerHTML = '';
+    response.forEach(function(element) {
+      //console.log(element);
+      document.querySelector("#stat-view div div").innerHTML += element.data + "<br/>";
+    });
+    return response;
+  })
+  .catch();
+});
+
+
+
+  fetch("http://localhost:5000/api/news", {
   method: "POST",
   headers: {
-    "Accept": "application/json",
+    Accept: "application/json",
     "Content-Type": "application/json",
-    "Authorization": "3eQNDaE57qY5SSG2JFN14nrCVRK2",
-    "level_id": "2"
+    Authorization: "mr.e.cameron@gmail.com",
+    target: "admin"
   },
-  body: "{\"correct\":[\"x\",\"x\"]}"
+  body: 'post request test'
 })
-.then(function (response) {
-  console.log("Response code: " + response.status + ' ' + response.statusText );
-  return response;
-})
-.then(response => response.json())
-.then(response => console.log(response))
-.catch();
+
+
+
+
+
+//   fetch("http://localhost:5000/api/save", {
+//   method: "POST",
+//   headers: {
+//     Accept: "application/json",
+//     "Content-Type": "application/json",
+//     Authorization: "3eQNDaE57qY5SSG2JFN14nrCVRK2",
+//     level_id: "2"
+//   },
+//   body: '{"correct":["x","x"]}'
+// })
