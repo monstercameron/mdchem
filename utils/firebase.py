@@ -4,6 +4,8 @@ from firebase_admin import credentials, auth
 cred = credentials.Certificate("utils/secret/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
+user_list = []
+
 
 def get_user_data(uid):
     user = auth.get_user(uid)
@@ -13,8 +15,10 @@ def get_user_data(uid):
 
 def get_user_data_all():
     users = []
+    global user_list
     for user in auth.list_users().iterate_all():
         user_record = {'email':user.email, 'UID': user.uid}
         users.append(user_record)
+        user_list.append(user.uid)
         print('User: ', user.uid, ',User email:', user.email)
     return users

@@ -9,6 +9,7 @@ from routes.admin import admin
 from routes.logout import logout
 from API.rest import all_users
 from API.users import users
+from API.save import save
 
 app.register_blueprint(require)
 app.register_blueprint(simple_page)
@@ -20,6 +21,7 @@ app.register_blueprint(contact)
 app.register_blueprint(admin)
 app.register_blueprint(all_users)
 app.register_blueprint(users, url_prefix='/api/')
+app.register_blueprint(save, url_prefix='/api/')
 
 
 if __name__ == '__main__':

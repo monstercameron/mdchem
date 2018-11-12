@@ -9,7 +9,6 @@ dashboard.addEventListener("click", function () {
   document.querySelector("#landing-view").classList.remove("collapse");
 });
 
-
 //settings page onclick listener
 var settings = document.querySelector("#settings");
 settings.addEventListener("click", function () {
@@ -65,7 +64,6 @@ students.addEventListener("click", function () {
     .catch(response => fillStudentTableError(response));
 });
 
-
 // get student data then build the table
 function fillStudentTable(response) {
   console.log(response)
@@ -101,3 +99,22 @@ function hide_all() {
     document.querySelector(element).classList.add("collapse");
   });
 }
+
+// fetch data to fill student table
+fetch("http://localhost:5000/api/save", {
+  method: "POST",
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": "3eQNDaE57qY5SSG2JFN14nrCVRK2",
+    "level_id": "2"
+  },
+  body: "{\"correct\":[\"x\",\"x\"]}"
+})
+.then(function (response) {
+  console.log("Response code: " + response.status + ' ' + response.statusText );
+  return response;
+})
+.then(response => response.json())
+.then(response => console.log(response))
+.catch();

@@ -3,7 +3,7 @@ from config.config import db
 
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    uid = db.Column(db.String(120), unique=True)
+    uid = db.Column(db.String(120))
     level_id = db.Column(db.String(120))
     data = db.Column(db.String(120))
 
