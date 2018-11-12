@@ -2,7 +2,9 @@ from flask import request, session, Response
 from utils.firebase import get_user_data_all
 from flask import jsonify
 from flask import Blueprint
-from config.config import tokens
+from classes.token import Token
+from classes.admin import Admin_test
+
 
 users = Blueprint('users', __name__,)
 
@@ -12,11 +14,12 @@ def index():
 
     allowed_methods = ['POST']
 
-    session['email'] = 'mr.e.cameron@gmail.com'
-    print('session -->', session)
-    print('tokens -->', tokens[session['email']])
+    token = request.headers['Authorization']
+    email = request.headers['email']
+    admin = Admin_test.query.filter_by(email=email).first()
+    token_store = Token.query.filter_by(owner_id=admin.id).first()
 
-    if request.headers['Authorization'] not in tokens[session['email']]:
+    if token not in token_store.token:
         response = Response(status=401)
         response.data = '{"message":"unauthorized"}'
 

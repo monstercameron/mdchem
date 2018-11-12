@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, request, redirect, session
 from classes.admin import Admin_test
 from utils.validation import validate_email, validate_password
 from utils.security import verify_password
-from config.config import tokens
+from classes.token import Token
+from classes.admin import Admin_test
+from config.config import db
 import uuid
 
 login = Blueprint('login', __name__)
@@ -43,11 +45,15 @@ def index():
         if not validate_password(password):
             return render_template('login.html', title=title, error="Password error")
         # if the passwords match sucessful login
-        print('password verification -->', verify_password(admin.password, password))
+        print('password verification -->',
+              verify_password(admin.password, password))
         if verify_password(admin.password, password):
             # adding email to session
             session['email'] = email
-            tokens[session['email']] = uuid.uuid4().hex
+            token = uuid.uuid4().hex
+            token_store = Token(token, admin)
+            db.session.add(token_store)
+            db.session.commit()
             print('current admin data -->', admin.__dict__)
             return redirect('/admin')
     return render_template('login.html', title=title)

@@ -14,6 +14,4 @@ app.secret_key = "TheKeyCanBeAString"
 
 CORS(app, resources=r'/api/*')
 
-tokens = {}
-
 db = SQLAlchemy(app)

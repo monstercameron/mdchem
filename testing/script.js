@@ -57,7 +57,8 @@ students.addEventListener("click", function () {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: document.querySelector("#secret").innerHTML
+        Authorization: document.querySelector("#secret").innerHTML,
+        email: document.querySelector("#email").innerHTML
       },
       body: ""
     })
@@ -154,11 +155,12 @@ fetch("http://localhost:5000/api/news")
 
 
 // fetch("http://localhost:5000/api/news", {
-//   method: "POST",
+//   method: "PUT",
 //   headers: {
 //     Accept: "application/json",
 //     "Content-Type": "application/json",
-//     Authorization: "mr.e.cameron@gmail.com",
+//     Authorization: document.querySelector("#secret").innerHTML,
+//     email: document.querySelector("#email").innerHTML,
 //     target: "admin"
 //   },
 //   body: 'post request test'
@@ -173,8 +175,8 @@ fetch("http://localhost:5000/api/news")
 //   headers: {
 //     Accept: "application/json",
 //     "Content-Type": "application/json",
-//     Authorization: "3eQNDaE57qY5SSG2JFN14nrCVRK2",
-//     level_id: "2"
+//     Authorization: document.querySelector("#secret").innerHTML,
+//     level_id: "3"
 //   },
-//   body: '{"correct":["x","x"]}'
+//   body: '{"correct":["x","y"]}'
 // })

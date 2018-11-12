@@ -1,4 +1,5 @@
 from config.config import db
+from classes.token import Token
 
 
 class Admin_test(db.Model):
@@ -7,6 +8,7 @@ class Admin_test(db.Model):
     name = db.Column(db.String(120))
     password = db.Column(db.String(255))
     recovery = db.Column(db.String(255))
+    token = db.relationship('Token', backref='owner')
 
     def __init__(self, email, name, password, recovery):
         self.email = email

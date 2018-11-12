@@ -1,9 +1,11 @@
 from flask import request, session, Response
 from datetime import date
-from config.config import db
-from classes.news import News
 from flask import jsonify
 from flask import Blueprint
+from config.config import db
+from classes.token import Token
+from classes.admin import Admin_test
+from classes.news import News
 
 news = Blueprint('news', __name__,)
 
@@ -21,12 +23,15 @@ def index():
                          'message': news.message})
         response = jsonify(data)
         return response
+
     elif request.method == 'POST':
 
-        session['email'] = 'mr.e.cameron@gmail.com'
-        print('session -->', session)
-        
-        if request.headers['Authorization'] not in session['email']:
+        token = request.headers['Authorization']
+        email = request.headers['email']
+        admin = Admin_test.query.filter_by(email=email).first()
+        token_store = Token.query.filter_by(owner_id=admin.id).first()
+
+        if token not in token_store.token:
             response = Response(status=401)
             response.data = '{"message":"unauthorized"}'
         else:
@@ -38,5 +43,8 @@ def index():
             response = Response(status=200)
             response.data = '{"message":"saved news"}'
 
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+    elif request.method not in allowed_methods:
+            response = Response(status=405)
+
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response

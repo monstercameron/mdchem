@@ -1,10 +1,10 @@
 
 from flask import request, session, Response
+from flask import jsonify
+from flask import Blueprint
 from utils.firebase import get_user_data_all, user_list
 from config.config import db
 from classes.data import Data
-from flask import jsonify
-from flask import Blueprint
 
 save = Blueprint('save', __name__,)
 
@@ -30,9 +30,10 @@ def index():
                 {'uid': user.uid, 'level_id': user.level_id, 'data': user.data})
         response = jsonify(data)
     elif request.method == 'POST':
-        # print('POST request key -->', request.headers['Authorization'])
-        # print('the list --> ', '/'.join(user_list))
-        if request.headers['Authorization'] not in user_list:
+
+        uid = request.headers['Authorization']
+
+        if uid not in user_list:
             response = Response(status=401)
             response.data = '{"message":"bad key"}'
         else:
@@ -58,4 +59,3 @@ def index():
 
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-    # return json.dumps(users)
