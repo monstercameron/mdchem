@@ -110,30 +110,6 @@ function hide_all() {
   });
 }
 
-var stats = document.querySelector("#stats");
-stats.addEventListener("click", function() {
-  // fetch all level data
-  fetch("http://localhost:5000/api/save")
-    .then(function(response) {
-      console.log(
-        "Response code: " + response.status + " " + response.statusText
-      );
-      return response;
-    })
-    .then(response => response.json())
-    .then(function(response) {
-      console.log(response);
-      document.querySelector("#stat-view div div").innerHTML = "";
-      response.forEach(function(element) {
-        //console.log(element);
-        document.querySelector("#stat-view div div").innerHTML +=
-          element.data + "<br/>";
-      });
-      return response;
-    })
-    .catch();
-});
-
 fetch("http://localhost:5000/api/news")
   .then(function(response) {
     console.log(

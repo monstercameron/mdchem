@@ -136,7 +136,7 @@
         <div class="col-10 sidebar h-100">
           <main class="page sidebar-sticky p-2 pt-4">
             <!-- landing page -->
-            <div id="landing-view" class="container-fluid">
+            <div id="landing-view" class="container-fluid collapse">
               <div class="col-sm-auto mx-auto">
                 <div class="jumbotron">
                   <img
@@ -248,12 +248,17 @@ function saveData() {
               <div class="jumbotron"><h1>Trends:</h1></div>
             </div>
             <!-- stats page -->
-            <div id="stat-view" class="container-fluid collapse">
+            <div id="stat-view" class="container-fluid collapse show">
               <div class="jumbotron">
                 <h1>Stats:</h1>
                 <!-- inner div for data -->
+                <canvas id="myChart" class="border rounded w-100 bg-light"></canvas>
+                <button class=" m-3 btn btn-primary" onclick="updateChart();">update</button>
+                <button class=" m-3 btn btn-secondary" onclick="removeData(myChart);">update</button>
                 <div></div>
               </div>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+              <script src="/testing/chartScript.js"></script>
             </div>
           </main>
         </div>
