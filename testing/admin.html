@@ -29,8 +29,7 @@
   <body>
     <nav
       class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top"
-      style="z-index:1031;"
-    >
+      style="z-index:1031;">
       <!-- navbar -->
       <ul class=" navbar-nav text-white">
         <a id="dashboard" class="navbar-brand" href="#">
@@ -46,10 +45,8 @@
           <h4 class="pt-2">
             Hi 
             <span >mr.e.cameron@gmail.com</span>
-            <span id="email" class="collapse">mr.e.cameron@gmail.com</span
-            ><span id="secret" class="collapse"
-              >4d4ab8f0af73464fb9d75cf82304bfed</span
-            >
+            <span id="email" class="collapse">mr.e.cameron@gmail.com</span>
+            <span id="secret" class="collapse">6f09708f14a240ada49fa2d1bd14332c</span>
           </h4>
         </li>
       </ul>
@@ -196,6 +193,18 @@ function saveData() {
                   >
                     Save user data to database!
                   </button>
+                  <div>
+                    <h3>
+                      Save Custom data:
+                    </h3>
+                    <input id="inputSaveData" type="text" class="form-control" value="'{...}'">
+                    <button
+                      class="btn btn-danger mt-1 mb-3 w-100"
+                      onclick="saveData(document.querySelector('#inputSaveData').value);"
+                    >
+                      Save user data to database!
+                    </button>
+                  </div>
                   <h3>News:</h3>
                   <ul class="news-feed">
                     <li>11.08.2018, added news feed</li>
@@ -204,7 +213,7 @@ function saveData() {
               </div>
             </div>
             <!-- student list page -->
-            <div id="student-view" class="container-fluid collapse">
+            <div id="student-view" class="container-fluid ">
               <div id="student-container" class="jumbotron">
                 <h1>Student data:</h1>
                 <table id="student-table" class="display">
@@ -234,6 +243,37 @@ function saveData() {
                 </div>
               </div>
             </div>
+            <!-- per student page -->
+            <div id="student-singular-view" class="container-fluid collapse">
+              <div id="student-container" class="jumbotron">
+                <h1>Student data:</h1>
+                <div>email</div>
+                <div id="student-date-name"></div>
+
+                <div>uid </div>
+                <div></div>
+
+                <div>level 1-10 scores</div>
+                <div></div>
+
+                <div>correct</div>
+                <div></div>
+
+                <div>incorret</div>
+                <div></div>
+
+                <div>guess rate</div>
+                <div></div>
+              </div>
+              <div id="api-error" class="container-fluid collapse mx-auto">
+                <div class="jumbotron text-center">
+                  <h1 class="display-4">oops!</h1>
+                  <p class="lead">
+                    Can't connect to API, contact administrator.
+                  </p>
+                </div>
+              </div>
+            </div>
             <!-- settings page -->
             <div id="setting-view" class="container-fluid collapse">
               <div class="jumbotron">
@@ -248,14 +288,24 @@ function saveData() {
               <div class="jumbotron"><h1>Trends:</h1></div>
             </div>
             <!-- stats page -->
-            <div id="stat-view" class="container-fluid collapse show">
+            <div id="stat-view" class="container-fluid collapse">
               <div class="jumbotron">
                 <h1>Stats:</h1>
                 <!-- inner div for data -->
-                <canvas id="myChart" class="border rounded w-100 bg-light"></canvas>
-                <button class=" m-3 btn btn-primary" onclick="updateChart();">update</button>
-                <button class=" m-3 btn btn-secondary" onclick="removeData(myChart);">update</button>
-                <div></div>
+                <h3>Element Difficulty</h3>
+                <canvas id="element" class="border rounded w-100 bg-light"></canvas>
+                <button class=" m-3 btn btn-primary" onclick="updateChart(elemChart);">update</button>
+                <button class=" m-3 btn btn-secondary" onclick="removeData(elemChart);">update</button>
+                <!-- inner div for data -->
+                <h3>Level Difficulty</h3>
+                <canvas id="level" class="border rounded w-100 bg-light"></canvas>
+                <button class=" m-3 btn btn-primary" onclick="updateChart(levelChart);">update</button>
+                <button class=" m-3 btn btn-secondary" onclick="removeData(levelChart);">update</button>
+                <!-- inner div for data -->
+                <h3>Comprehension Vs Guessing (Class-wide)</h3>
+                <canvas id="comprehension" class="border rounded w-100 bg-light"></canvas>
+                <button class=" m-3 btn btn-primary" onclick="updateChart(compChart);">update</button>
+                <button class=" m-3 btn btn-secondary" onclick="removeData(compChart);">update</button>
               </div>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
               <script src="/testing/chartScript.js"></script>

@@ -11,6 +11,7 @@ from API.rest import all_users
 from API.users import users
 from API.save import save
 from API.news import news
+from API.userdata import userdata
 
 app.register_blueprint(require)
 app.register_blueprint(simple_page)
@@ -24,6 +25,7 @@ app.register_blueprint(all_users)
 app.register_blueprint(users, url_prefix='/api/')
 app.register_blueprint(save, url_prefix='/api/')
 app.register_blueprint(news, url_prefix='/api/')
+app.register_blueprint(userdata, url_prefix='/api/')
 
 
 if __name__ == '__main__':
