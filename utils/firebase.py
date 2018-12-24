@@ -6,13 +6,11 @@ from config.config import db
 cred = credentials.Certificate("utils/secret/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
-user_list = []
-
 
 def get_user_data(uid):
     user = auth.get_user(uid)
     print('Successfully fetched user data: {0}'.format(user.uid))
-    user_record = {'email':user.email, 'UID': user.uid}
+    user_record = {'email': user.email, 'UID': user.uid}
     return user_record
 
 
@@ -20,13 +18,14 @@ def get_user_data_all():
     users = []
     global user_list
     for user in auth.list_users().iterate_all():
-        user_record = {'email':user.email, 'UID': user.uid}
+        user_record = {'email': user.email, 'UID': user.uid}
         users.append(user_record)
         user_list.append(user.uid)
         print('User: ', user.uid, ',User email:', user.email)
     return users
 
-def newUserToDatabase():
+
+def new_user_to_database():
     for fire_base_user in auth.list_users().iterate_all():
 
         # print('User: ', fire_base_user.uid, ',User email:', fire_base_user.email)

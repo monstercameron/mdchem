@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="values">values</label>
+    <input id="values" type="text" style="width:100%;" /> <br />
+
+    <label for="uuid">uuid</label>
+    <input id="uuid" type="text" value="IS2mQ1a8UfVyZYxcZLFKpKgdhry1" /> <br />
+
+    <label for="secret">secret</label>
+    <input id="secret" type="text" value="ab00a7868ca74d2692ea4583f74ab536" />
+    <br />
+
+    <button onclick="confirmWrapper()">Send It!</button>
+    <script>
+      function confirmWrapper() {
+        var values = document.querySelector("#values").value;
+        var uuid = document.querySelector("#uuid").value;
+        var secret = document.querySelector("#secret").value;
+        if (confirm("data being sent --> " + values)) {
+          saveData();
+        }
+      }
+      function saveData() {
+        var values = document.querySelector("#values").value;
+        var uuid = document.querySelector("#uuid").value;
+        var secret = document.querySelector("#secret").value;
+        fetch("http://localhost:5000/api/save", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            uuid: uuid,
+            level_id: "1"
+          },
+          body: values
+        })
+          .then(response => response.json())
+          .then(response => alert("message:" + response.message));
+      }
+    </script>
+  </body>
+</html>

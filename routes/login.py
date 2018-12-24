@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, redirect, session
 from classes.admin import Admin_test
 from utils.validation import validate_email, validate_password
 from utils.security import verify_password
-from utils.firebase import newUserToDatabase
 from classes.token import Token
 from classes.admin import Admin_test
 from config.config import db
