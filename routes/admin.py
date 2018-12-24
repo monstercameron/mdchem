@@ -29,4 +29,4 @@ def index():
     admin = Admin_test.query.filter_by(email=session['email']).first()
     token = Token.query.filter_by(owner_id=admin.id).first()
     print('Token -->', token.token)
-    return render_template('admin.html', title=title, name=session['email'].split('@')[0], email=session['email'], secret=token.token)
+    return render_template('admin.html', title=title, name=token.owner.name, email=session['email'], secret=token.token)

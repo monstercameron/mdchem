@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
-from classes.admin import Admin_test
+from classes.admin import Admin_test, Roles
 from config.config import db
 from utils.validation import validate_email, validate_password
 from utils.security import hash_password
@@ -60,11 +60,16 @@ def index():
         # make admin object
         admin = Admin_test(email, first + ' ' + last, hashed_password, hashed_recovery)
 
+        # check if its first user to register
+        if len(Admin_test.query.all()) == 0:
+            admin.role = Roles.OWNER
+        else:
+            admin.role = Roles.ADMIN
         # insert into database
         db.session.add(admin)
         db.session.commit()
 
-        # on sucess do nothing
+
 
         # on success
         return redirect(url_for('login.index', success='Successfully registered your account'))

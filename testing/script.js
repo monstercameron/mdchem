@@ -325,6 +325,9 @@ update_form.addEventListener("click", function () {
 var server_log = document.querySelector("#server-log");
 server_log.addEventListener("click", function () {
 
+  error = document.querySelector("#settings-server-error");
+  error.classList.add("collapse");
+
   if (document.querySelector("#settings-server").classList.contains("collapse")) {
     // fetch data to fill server log
     fetch("http://localhost:5000/api/logs")
@@ -360,9 +363,91 @@ server_log.addEventListener("click", function () {
 
       })
       .catch(response => {
-        log_list = document.querySelector("#settings-server-error");
-        log_list.classList.remove("collapse");
+        error = document.querySelector("#settings-server-error");
+        error.classList.remove("collapse");
       });
   }
 
 });
+
+
+
+
+//settings admin onclick listener refresh button
+var adminSettings = document.querySelector("#settings-admins-btn");
+adminSettings.addEventListener("click", function () {
+
+  error = document.querySelector("#settings-admins-error");
+  error.classList.add("collapse");
+
+  if (document.querySelector("#settings-server").classList.contains("collapse")) {
+    // fetch data to fill server log
+    fetch("http://localhost:5000/api/admin", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: document.querySelector("#secret").innerHTML
+      },
+      body: ""
+    }).then(function (response) {
+      console.log("Response code: " + response.status + " " + response.statusText);
+      return response;
+    })
+      .then(response => response.json())
+      .then(response => {
+
+        console.log(response);
+
+        adminList = document.querySelector("#setting-admins-container");
+        adminList.innerHTML = '';
+
+        var index = 1;
+
+        response.forEach(element => {
+
+          if (index % 2 == 0) {
+
+            adminList.innerHTML +=
+              "<div class=\"row text-center\">" +
+              "<div class=\"col-sm-4 bg-light\">" + element.name + "</div>" +
+              "<div class=\"col-sm-4 bg-light\">" + element.email + "</div>" +
+              "<div class=\"col-sm-4 bg-light\">" + roleTranslate(element) + "</div>" +
+              "</div>"
+
+          } else {
+
+            adminList.innerHTML +=
+              "<div class=\"row text-center\">" +
+              "<div class=\"col-sm-4\">" + element.name + "</div>" +
+              "<div class=\"col-sm-4\">" + element.email + "</div>" +
+              "<div class=\"col-sm-4\">" + roleTranslate(element)  + "</div>" +
+              "</div>"
+          }
+
+          index += 1;
+
+        })
+
+      })
+      .catch(response => {
+        error = document.querySelector("#settings-admins-error");
+        error.classList.remove("collapse");
+      });
+  }
+
+});
+
+function roleTranslate(element){
+  switch(element.role) {
+    case 1:
+      return "Owner"
+      break;
+    case 2:
+      return "Admin"
+      break;
+    case 2:
+      return "User"
+      break;
+  }
+}

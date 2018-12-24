@@ -44,10 +44,10 @@
         </a>
         <li class="nav-item">
           <h4 class="pt-2">
-            Hi <span>mr.e.cameron@gmail.com</span>
+            Hi <span class="text-transform: capitalize">Earl Cameron</span>
             <span id="email" class="collapse">mr.e.cameron@gmail.com</span>
             <span id="secret" class="collapse"
-              >d83a3c233efd48268bf8d36c4e48c755</span
+              >4a9f9b923841468490a92bfeceab77c6</span
             >
           </h4>
         </li>
@@ -284,10 +284,16 @@ function saveData() {
               </div>
             </div>
             <!-- settings page -->
-            <div id="setting-view" class="container-fluid collapse show">
+            <div id="setting-view" class="container-fluid collapse">
               <div class="jumbotron">
                 <h1>Settings:</h1>
                 <div class="form-group">
+
+
+
+
+
+
                   <!-- change password -->
                   <div class="container-fluid">
                       <button data-toggle="collapse" data-target="#settings-account" class="btn btn-dark w-100">My Account</button>
@@ -304,13 +310,37 @@ function saveData() {
                         </form>
                       </div>
                   </div>
+
+
+
+
+
                   <!-- admin admins -->
                   <div class="container-fluid mt-3">
-                      <button data-toggle="collapse" data-target="#settings-admins" class="btn btn-dark w-100">Admin Access</button>
-
-                      <div id="settings-admins" class="collapse">
+                    <button id="settings-admins-btn" data-toggle="collapse" data-target="#settings-admins" class="btn btn-dark w-100">Admin
+                      Access</button>
+                  
+                    <div id="settings-admins" class="mt-3 collapse container">
+                  
+                      <div id="setting-admins-container">                
                       </div>
+                  
+                      <div id="settings-admins-error" class="jumbotron bg-light mt-3 collapse text-center">
+                        <h1 class="display-4">oops!</h1>
+                        <p class="lead">
+                          Can't connect to API, contact administrator.
+                        </p>
+                      </div>
+
+                    </div>
+
                   </div>
+
+
+
+
+
+
                   <!-- server logs -->
                   <div class="container-fluid mt-3">
                     <button id="server-log" data-toggle="collapse" data-target="#settings-server" class="btn btn-dark w-100">Server</button>
@@ -329,6 +359,9 @@ function saveData() {
                       </div>
                     </div>
                   </div>
+
+
+
 
 
                 </div>

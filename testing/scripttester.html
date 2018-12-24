@@ -14,7 +14,7 @@
     <input id="uuid" type="text" value="IS2mQ1a8UfVyZYxcZLFKpKgdhry1" /> <br />
 
     <label for="secret">secret</label>
-    <input id="secret" type="text" value="ab00a7868ca74d2692ea4583f74ab536" />
+    <input id="secret" type="text" value="7e4137edfd6d49e59565e72f37bafa7c" />
     <br />
 
     <button onclick="confirmWrapper()">Send It!</button>
@@ -28,21 +28,25 @@
         }
       }
       function saveData() {
+
         var values = document.querySelector("#values").value;
         var uuid = document.querySelector("#uuid").value;
         var secret = document.querySelector("#secret").value;
-        fetch("http://localhost:5000/api/save", {
+
+        fetch("http://localhost:5000/api/admin", {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            uuid: uuid,
-            level_id: "1"
+            Authorization: secret
           },
-          body: values
+          body: ""
         })
           .then(response => response.json())
-          .then(response => alert("message:" + response.message));
+          .then(response => {
+            alert("message:" + response[0].email);
+            console.log(response)
+          });
       }
     </script>
   </body>

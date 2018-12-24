@@ -1,5 +1,13 @@
 from config.config import db
 from classes.token import Token
+import enum
+from sqlalchemy import Enum
+
+
+class Roles(enum.Enum):
+    OWNER = 1
+    ADMIN = 2
+    USER = 3
 
 
 class Admin_test(db.Model):
@@ -8,6 +16,7 @@ class Admin_test(db.Model):
     name = db.Column(db.String(120))
     password = db.Column(db.String(255))
     recovery = db.Column(db.String(255))
+    role = db.Column(Enum(Roles))
     token = db.relationship('Token', backref='owner')
 
     def __init__(self, email, name, password, recovery):
