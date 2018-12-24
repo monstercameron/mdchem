@@ -29,7 +29,8 @@
   <body>
     <nav
       class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top"
-      style="z-index:1031;">
+      style="z-index:1031;"
+    >
       <!-- navbar -->
       <ul class=" navbar-nav text-white">
         <a id="dashboard" class="navbar-brand" href="#">
@@ -43,10 +44,11 @@
         </a>
         <li class="nav-item">
           <h4 class="pt-2">
-            Hi 
-            <span >mr.e.cameron@gmail.com</span>
+            Hi <span>mr.e.cameron@gmail.com</span>
             <span id="email" class="collapse">mr.e.cameron@gmail.com</span>
-            <span id="secret" class="collapse">6f09708f14a240ada49fa2d1bd14332c</span>
+            <span id="secret" class="collapse"
+              >d83a3c233efd48268bf8d36c4e48c755</span
+            >
           </h4>
         </li>
       </ul>
@@ -70,20 +72,21 @@
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Modal Heading</h4>
+            <h4 class="modal-title"> Hey there... </h4>
             <button type="button" class="close" data-dismiss="modal">
               &times;
             </button>
           </div>
           <!-- Modal body -->
-          <div class="modal-body">
-            <form action="/logout" method="post">
-              <input type="hidden" name="{{uid}}" /> Are you sure you want to
-              logout? <button type="submit" class="btn btn-danger">YES</button>
-            </form>
+          <div class="modal-body"> 
+            Are you sure you want to
+              logout?
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
+            <form action="/logout" method="post">
+              <input type="hidden" name="{{ uid }}" /><button type="submit" class="btn btn-danger">YES</button>
+            </form>
             <button type="button" class="btn btn-success" data-dismiss="modal">
               Close
             </button>
@@ -194,10 +197,13 @@ function saveData() {
                     Save user data to database!
                   </button>
                   <div>
-                    <h3>
-                      Save Custom data:
-                    </h3>
-                    <input id="inputSaveData" type="text" class="form-control" value="'{...}'">
+                    <h3>Save Custom data:</h3>
+                    <input
+                      id="inputSaveData"
+                      type="text"
+                      class="form-control"
+                      value="'{...}'"
+                    />
                     <button
                       class="btn btn-danger mt-1 mb-3 w-100"
                       onclick="saveData(document.querySelector('#inputSaveData').value);"
@@ -213,9 +219,12 @@ function saveData() {
               </div>
             </div>
             <!-- student list page -->
-            <div id="student-view" class="container-fluid ">
+            <div id="student-view" class="container-fluid collapse">
               <div id="student-container" class="jumbotron">
-                <h1>Student data:</h1>
+                <h1>
+                  Student data:
+                  <button id="student-data-refresh" class="btn btn-primary"><i class="material-icons"> autorenew </i></button>
+                </h1>
                 <table id="student-table" class="display">
                   <thead>
                     <tr>
@@ -250,7 +259,7 @@ function saveData() {
                 <div>email</div>
                 <div id="student-date-name"></div>
 
-                <div>uid </div>
+                <div>uid</div>
                 <div></div>
 
                 <div>level 1-10 scores</div>
@@ -275,11 +284,47 @@ function saveData() {
               </div>
             </div>
             <!-- settings page -->
-            <div id="setting-view" class="container-fluid collapse">
+            <div id="setting-view" class="container-fluid collapse show">
               <div class="jumbotron">
                 <h1>Settings:</h1>
                 <div class="form-group">
-                  <input class="btn btn-danger" type="button" value="Reset" />
+                  <!-- change password -->
+                  <div class="container-fluid">
+                      <button data-toggle="collapse" data-target="#settings-account" class="btn btn-dark w-100">My Account</button>
+
+                      <div id="settings-account" class="collapse">
+                        <form id="update-form" class="form-group mt-5" action="/update">
+                          <h4 class="text-center">Update my password</h4>
+                          <input type="text" class="form-control" placeholder="email" name="email">
+                          <input type="text" class="form-control mt-1" placeholder="verify email" name="emailverify">
+                          <input type="password" class="form-control mt-1" placeholder="old password" name="oldpassword">
+                          <input type="password" class="form-control mt-1" placeholder="new password" name="password">
+                          <input type="password" class="form-control mt-1" placeholder="verify new password" name="pwverify">
+                          <input type="button" id="update-form-btn" class="btn btn-primary w-50 mt-1 w-100" value="update">
+                        </form>
+                      </div>
+                  </div>
+                  <!-- admin admins -->
+                  <div class="container-fluid mt-3">
+                      <button data-toggle="collapse" data-target="#settings-admins" class="btn btn-dark w-100">Admin Access</button>
+
+                      <div id="settings-admins" class="collapse">
+                      </div>
+                  </div>
+                  <!-- server logs -->
+                  <div class="container-fluid mt-3">
+                      <button id="server-log" data-toggle="collapse" data-target="#settings-server" class="btn btn-dark w-100">Server</button>
+
+                      <div id="settings-server" class="collapse">
+                        <div id="server-log" class="container-fluid mt-3 border">
+                          <div class="row" id="server-log-list">
+                          </div>
+
+                        </div>
+                      </div>
+                  </div>
+
+
                 </div>
               </div>
             </div>
@@ -293,19 +338,58 @@ function saveData() {
                 <h1>Stats:</h1>
                 <!-- inner div for data -->
                 <h3>Element Difficulty</h3>
-                <canvas id="element" class="border rounded w-100 bg-light"></canvas>
-                <button class=" m-3 btn btn-primary" onclick="updateChart(elemChart);">update</button>
-                <button class=" m-3 btn btn-secondary" onclick="removeData(elemChart);">update</button>
+                <canvas
+                  id="element"
+                  class="border rounded w-100 bg-light"
+                ></canvas>
+                <button
+                  class=" m-3 btn btn-primary"
+                  onclick="updateChart(elemChart);"
+                >
+                  update
+                </button>
+                <button
+                  class=" m-3 btn btn-secondary"
+                  onclick="removeData(elemChart);"
+                >
+                  update
+                </button>
                 <!-- inner div for data -->
                 <h3>Level Difficulty</h3>
-                <canvas id="level" class="border rounded w-100 bg-light"></canvas>
-                <button class=" m-3 btn btn-primary" onclick="updateChart(levelChart);">update</button>
-                <button class=" m-3 btn btn-secondary" onclick="removeData(levelChart);">update</button>
+                <canvas
+                  id="level"
+                  class="border rounded w-100 bg-light"
+                ></canvas>
+                <button
+                  class=" m-3 btn btn-primary"
+                  onclick="updateChart(levelChart);"
+                >
+                  update
+                </button>
+                <button
+                  class=" m-3 btn btn-secondary"
+                  onclick="removeData(levelChart);"
+                >
+                  update
+                </button>
                 <!-- inner div for data -->
                 <h3>Comprehension Vs Guessing (Class-wide)</h3>
-                <canvas id="comprehension" class="border rounded w-100 bg-light"></canvas>
-                <button class=" m-3 btn btn-primary" onclick="updateChart(compChart);">update</button>
-                <button class=" m-3 btn btn-secondary" onclick="removeData(compChart);">update</button>
+                <canvas
+                  id="comprehension"
+                  class="border rounded w-100 bg-light"
+                ></canvas>
+                <button
+                  class=" m-3 btn btn-primary"
+                  onclick="updateChart(compChart);"
+                >
+                  update
+                </button>
+                <button
+                  class=" m-3 btn btn-secondary"
+                  onclick="removeData(compChart);"
+                >
+                  update
+                </button>
               </div>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
               <script src="/testing/chartScript.js"></script>

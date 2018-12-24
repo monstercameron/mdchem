@@ -54,7 +54,7 @@ def index():
         # password, recovery hashing
         # hashing the password
         hashed_password = hash_password(password)
-        # hasing the recovery question and secret response
+        # hashing the recovery question and secret response
         hashed_recovery = hash_password(password)
 
         # make admin object

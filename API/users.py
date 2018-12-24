@@ -1,9 +1,10 @@
 from flask import request, session, Response
-from utils.firebase import get_user_data_all
 from flask import jsonify
 from flask import Blueprint
 from classes.token import Token
 from classes.admin import Admin_test
+from utils.firebase import new_user_to_database
+from classes.student import Student
 
 
 users = Blueprint('users', __name__,)
@@ -26,8 +27,13 @@ def index():
         response.data = '{"message":"unauthorized"}'
 
     elif request.method in allowed_methods:
-        users = get_user_data_all()
-        message = {'users':users}
+        new_user_to_database()
+
+        users = []
+
+        for student in Student.query.all():
+            users.append({'email': student.email, 'UID': student.uid})
+
         response = jsonify(users)
 
     else:
