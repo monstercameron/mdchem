@@ -358,6 +358,10 @@ server_log.addEventListener("click", function () {
 
         })
 
+      })
+      .catch(response => {
+        log_list = document.querySelector("#settings-server-error");
+        log_list.classList.remove("collapse");
       });
   }
 

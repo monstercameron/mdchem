@@ -313,15 +313,21 @@ function saveData() {
                   </div>
                   <!-- server logs -->
                   <div class="container-fluid mt-3">
-                      <button id="server-log" data-toggle="collapse" data-target="#settings-server" class="btn btn-dark w-100">Server</button>
-
-                      <div id="settings-server" class="collapse">
-                        <div id="server-log" class="container-fluid mt-3 border">
-                          <div class="row" id="server-log-list">
-                          </div>
-
+                    <button id="server-log" data-toggle="collapse" data-target="#settings-server" class="btn btn-dark w-100">Server</button>
+                  
+                    <div id="settings-server" class="collapse">
+                      <div id="server-log" class="container-fluid mt-3 border">
+                        <div class="row" id="server-log-list">
                         </div>
+                  
                       </div>
+                      <div id=settings-server-error class="jumbotron bg-light mt-3 collapse text-center">
+                        <h1 class="display-4">oops!</h1>
+                        <p class="lead">
+                          Can't connect to API, contact administrator.
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
 
