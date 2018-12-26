@@ -13,28 +13,21 @@ users = Blueprint('users', __name__,)
 @users.route('users', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
 
-    allowed_methods = ['POST']
-
     token = request.headers['Authorization']
-    email = request.headers['email']
-    admin = Admin_test.query.filter_by(email=email).first()
-    token_store = Token.query.filter_by(owner_id=admin.id).first()
+    token_local = Token.query.filter_by(token=token).first()
+    print('Token exists --> ', not token_local is None)
 
-    print(token, token_store.token)
+    if request.method == 'POST':
+        if token_local is None:
+            response = Response(status=401)
+            response.data = '{"message":"unauthorized"}'
 
-    if token not in token_store.token:
-        response = Response(status=401)
-        response.data = '{"message":"unauthorized"}'
-
-    elif request.method in allowed_methods:
-        new_user_to_database()
-
-        users = []
-
-        for student in Student.query.all():
-            users.append({'email': student.email, 'UID': student.uid})
-
-        response = jsonify(users)
+        else:
+            new_user_to_database()
+            users = []
+            for student in Student.query.all():
+                users.append({'email': student.email, 'UID': student.uid})
+            response = jsonify(users)
 
     else:
         response = Response(status=405)
