@@ -35,13 +35,13 @@ def index():
 
         uid = request.headers['uuid']
         level = request.headers['level_id']
+        score = request.headers['score']
         body = request.data
 
         if Student.query.filter_by(uid=uid).all():
 
-
             if Data.query.filter_by(level_id=level, owner=Student.query.filter_by(uid=uid).first()).first() == None:
-                data = Data(level, body, 25,
+                data = Data(level, body, score,
                             Student.query.filter_by(uid=uid).first())
                 db.session.add(data)
                 message = {'message': 'data saved'}

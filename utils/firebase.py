@@ -2,8 +2,21 @@ import firebase_admin
 from firebase_admin import credentials, auth
 from classes.student import Student
 from config.config import db
+import os
 
-cred = credentials.Certificate("utils/secret/serviceAccountKey.json")
+# if testing on a local machine
+file_path = 'utils/secret/serviceAccountKey.json'
+file = os.path.isfile(file_path)
+
+# if testing on a remote machine
+remote_file_path = '/var/www/mdchem/mdchem/utils/secret/serviceAccountKey.json'
+remote_file = os.path.isfile(remote_file_path)
+
+if file:
+    cred = credentials.Certificate(file_path)
+else:
+    cred = credentials.Certificate(remote_file_path)
+
 firebase_admin.initialize_app(cred)
 
 
@@ -16,11 +29,9 @@ def get_user_data(uid):
 
 def get_user_data_all():
     users = []
-    global user_list
     for user in auth.list_users().iterate_all():
         user_record = {'email': user.email, 'UID': user.uid}
         users.append(user_record)
-        user_list.append(user.uid)
         print('User: ', user.uid, ',User email:', user.email)
     return users
 
