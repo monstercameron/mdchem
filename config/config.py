@@ -4,7 +4,7 @@ from flask_cors import CORS
 import os
 
 
-local = True
+local = False
 
 if local:
     static = os.path.dirname(os.getcwd())+'/mdchem/static'
