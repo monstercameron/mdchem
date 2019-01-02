@@ -21,7 +21,12 @@ def require_login():
 @logout.route('/logout', methods=['GET', 'POST'])
 def index():
     admin = Admin_test.query.filter_by(email=session['email']).first()
-    token = Token.query.filter_by(owner_id=admin.id).delete()
-    db.session.commit()
+
+    if not admin == None:
+        token = Token.query.filter_by(owner_id=admin.id).all()
+        if len(token) > 0:
+            Token.query.filter_by(owner_id=admin.id).delete()
+
+    db.session.commit()    
     del session['email']
     return redirect('/')
