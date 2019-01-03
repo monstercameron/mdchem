@@ -5,12 +5,11 @@ from flask import Blueprint
 from config.config import db
 from classes.token import Token
 from classes.admin import Admin_test
-from classes.news import News
 
-news = Blueprint('news', __name__,)
+news = Blueprint('logout', __name__,)
 
 
-@news.route('news', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
+@logout.route('logout', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
 
     if request.method == 'POST':
@@ -23,12 +22,13 @@ def index():
         admin = Admin_test.query.filter_by(email=email).first()
         token_store = Token.query.filter_by(token=token).first()
 
-        # if admin and corresponding token exists then delete all the tokes from the database
+        # if admin and corresponding token exists then delete all the tokens from the database
         if not admin == None and not token == None:
             token = Token.query.filter_by(owner_id=admin.id).all()
             if len(token) > 0:
                 Token.query.filter_by(owner_id=admin.id).delete()
         else:
+            # respond with unauthorized message
             response = Response(status=401)
             response.data = '{"message":"unauthorized"}'
 
@@ -36,6 +36,7 @@ def index():
     db.session.commit()    
 
     else:
+            # respond with http method not allowed
             response = Response(status=405)
 
     response.headers.add('Access-Control-Allow-Origin', '*')

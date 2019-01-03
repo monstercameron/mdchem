@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>API tester</title>
+</head>
+
+<body>
+    url
+    <input type="text" name="" id="url"></br>
+    uuid
+    <input type="text" name="" id="uuid"></br>
+    level id
+    <input type="text" name="" id="levelid"></br>
+    Data body
+    <input type="text" name="" id="data"></br>
+    <input type="button"  value="submit" onclick="sendAPI();">
+
+    <script>
+        function sendAPI() {
+
+            var url = document.querySelector('#url').value;
+            var uuidHeader = document.querySelector('#uuid').value;
+            var levelidHeader = document.querySelector('#levelid').value;
+            var dataBody = document.querySelector('#data').value;
+            alert("sending data-->" + dataBody + " to URL-->" + URL); 
+
+            fetch(url, {
+                method: 'post',
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    uuid: uuidHeader,
+                    levelid: levelidHeader
+                },
+                body: dataBody
+            }).then(function (response) {
+                console.log(
+                    "Response code: " + response.status + " " + response.statusText
+                );
+                return response;
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>
