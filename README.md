@@ -1,7 +1,7 @@
 # MDChem
 * * *
 ## URLS
-* http://mdcchem.ddns.net/ (test server)
+* http://mdchem.ddns.net/ (test server)
 * http://chemtutor.hopto.org/ (pythonanywhere test server)
 * http://68.183.111.180/ (API testing server)
 * * *
@@ -48,7 +48,7 @@
 * requirements.txt 
 * * * 
 ## Todo:
-* finish landing page styling with informativve text and video tutorials
+* finish landing page styling with informative text and video tutorials
 * finish contact form, preferably with email support
 * design and implement password recovery mechanism
 * design data presentation
@@ -60,6 +60,13 @@
 * find better solution for config file
 * learn more GIT
 * design userdata api and admin panel page
+* graceful error page
+* download links
+* contributor onlice CV / linkedin pages
+* flask logging
+* lets encrypt certificate apache
+* error warning system
+* react.js?
 * * * 
 ## Routes:
 * /admin (WIP)
