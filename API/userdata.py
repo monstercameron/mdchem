@@ -22,12 +22,11 @@ def index():
 
     admin = Admin_test.query.filter_by(email=email).first()
     token_store = Token.query.filter_by(owner_id=admin.id).first()
-    owner =  Student.query.filter_by(uid=user_uuid).first()
+    owner = Student.query.filter_by(uid=user_uuid).first()
     user_uuid_data = Data.query.filter_by(owner=owner).all()
-    
-    
-    #for data in user_uuid_data:
-       # print(data.uid ,data.level_id, data.data)
+
+    # for data in user_uuid_data:
+    # print(data.uid ,data.level_id, data.data)
 
     print(token, token_store.token)
 
@@ -38,8 +37,8 @@ def index():
     elif request.method in allowed_methods:
         data = []
         for userdata in user_uuid_data:
-            data.append({'level_id':userdata.level_id, 'data':userdata.data})
-        message = {'users':get_user_data(user_uuid), 'data':data}
+            data.append({'level_id': userdata.level_id, 'data': userdata.data})
+        message = {'users': get_user_data(user_uuid), 'data': data}
         response = jsonify(message)
 
     else:
