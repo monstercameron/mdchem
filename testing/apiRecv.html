@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>API Tester Recv</title>
+  </head>
+  <body>
+    <input type="text" value="http://localhost:5000/api/save" id="url" />
+    <input type="button" value="Recv" onclick="apiRecv()" />
+    <h1>Display request here:</h1>
+    <pre id="view"></pre>
+
+    <script>
+      url = document.querySelector("#url").value;
+      function apiRecv() {
+        //alert("fetching data from-->" + url);
+        fetch(url)
+          .then(function(response) {
+            console.log(
+              "Response code: " + response.status + " " + response.statusText
+            );
+            return response;
+          })
+          .then(response => response.json())
+          .then(response => {
+            response.forEach(element => {
+                console.log(JSON.parse(element.data));
+                document.querySelector("#view").innerHTML += "\n" + JSON.stringify(JSON.parse(element.data), null, 2);
+            });
+          })
+      }
+    </script>
+  </body>
+</html>

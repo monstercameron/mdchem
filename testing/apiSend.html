@@ -5,18 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>API tester</title>
+    <title>API tester Send</title>
 </head>
 
 <body>
     url
-    <input type="text" name="" id="url"></br>
+    <input type="text" name="" id="url" value="http://localhost:5000/api/save"></br>
     uuid
-    <input type="text" name="" id="uuid"></br>
+    <input type="text" name="" id="uuid" value="IS2mQ1a8UfVyZYxcZLFKpKgdhry1"></br>
     level id
-    <input type="text" name="" id="levelid"></br>
-    Data body
-    <input type="text" name="" id="data"></br>
+    <input type="text" name="" id="levelid" value="1"></br>
+    Score
+    <input type="text" name="" id="score" value="100"></br>
+    Data body</br>
+    <textarea name="textarea" placeholder="Enter the text..." id="data">data</textarea></br>
     <input type="button"  value="submit" onclick="sendAPI();">
 
     <script>
@@ -25,8 +27,9 @@
             var url = document.querySelector('#url').value;
             var uuidHeader = document.querySelector('#uuid').value;
             var levelidHeader = document.querySelector('#levelid').value;
+            var scoreHeader = document.querySelector('#score').value;
             var dataBody = document.querySelector('#data').value;
-            alert("sending data-->" + dataBody + " to URL-->" + URL); 
+            alert("sending data-->" + dataBody + " | to URL-->" + url); 
 
             fetch(url, {
                 method: 'post',
@@ -34,6 +37,7 @@
                     Accept: "application/json",
                     "Content-Type": "application/json",
                     uuid: uuidHeader,
+                    score: scoreHeader,
                     levelid: levelidHeader
                 },
                 body: dataBody
