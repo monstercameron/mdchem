@@ -13,8 +13,9 @@
     <pre id="view"></pre>
 
     <script>
-      url = document.querySelector("#url").value;
       function apiRecv() {
+        url = document.querySelector("#url").value;
+
         //alert("fetching data from-->" + url);
         fetch(url)
           .then(function(response) {

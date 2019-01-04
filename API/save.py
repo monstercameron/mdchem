@@ -16,8 +16,6 @@ save = Blueprint('save', __name__,)
 @save.route('save', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
 
-    allowed_methods = ['POST', 'GET']
-
     # testing
     # request.args.get
     # http GET method, no authorization
@@ -75,7 +73,7 @@ def index():
             response = jsonify(message)
 
         # if no students were found with the given uuid
-        elif not Student.query.filter_by(uid).all():
+        elif not Student.query.filter_by(uid=uid).all():
             # status 401 unauthorized with custom error message
             response = Response(status=401)
             response.data = '{"message":"bad uuid"}'

@@ -39,7 +39,7 @@ def get_user_data_all():
 def new_user_to_database():
     for fire_base_user in auth.list_users().iterate_all():
 
-        # print('User: ', fire_base_user.uid, ',User email:', fire_base_user.email)
+        print('new_user_to_database --> User: ', fire_base_user.uid, ',User email:', fire_base_user.email)
         # print('student --> ' , Student(fire_base_user.uid, fire_base_user.email).__dict__)
         if Student.query.filter_by(uid=fire_base_user.uid).first() is None:
             student = Student(fire_base_user.uid, fire_base_user.email)
