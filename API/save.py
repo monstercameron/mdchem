@@ -9,10 +9,6 @@ from utils.firebase import new_user_to_database
 
 save = Blueprint('save', __name__,)
 
-###     to do:
-####        refactor code
-####        research cors
-
 @save.route('save', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
 
@@ -27,10 +23,8 @@ def index():
         # retrieve all score entries and loop thought the returned list
         for user in Data.query.all():
             # append python dictionaries into the list to be jsonified
-            data.append(
-                {'level_id': user.level_id,
-                 'data': user.data,
-                 'score': user.score})
+            data.append({'level_id': user.level_id,'data': user.data,'score': user.score})
+
         # return a json string in the response object to the client         
         response = jsonify(data)
     
@@ -49,25 +43,35 @@ def index():
 
             # if the student had data objects saved already with level id
             if Data.query.filter_by(level_id=level, owner=Student.query.filter_by(uid=uid).first()).first() == None:
-                data = Data(level, body, score,
-                            Student.query.filter_by(uid=uid).first())
+                
+                # creating new data object
+                data = Data(level, body, score, Student.query.filter_by(uid=uid).first())
+
+                print('with levelid------->',data.__dict__)
+
+                # saving to database
                 db.session.add(data)
                 message = {'message': 'data saved'}
 
             # if the student didn't have data objects saved already with level id
             else:
-                data = Data.query.filter_by(
-                    level_id=level, owner=Student.query.filter_by(uid=uid).first()).first()
-                
-                # debug output    
-                print('this is the data --> ', data.__dict__)
+
+                # retrieving data object
+                data = Data.query.filter_by(level_id=level, owner=Student.query.filter_by(uid=uid).first()).first()
                 
                 # update the data object and and save to database
                 data.data = body
 
+                # update the data object score field
+                data.score = score
+                
+                # debug output    
+                print('Without levelid-------> ', data.__dict__)
+
                 # custom response message
                 message = {'message': 'data updated'}
 
+            # committing saves and updates to database
             db.session.commit()
             # print(data.__dict__)
             response = jsonify(message)

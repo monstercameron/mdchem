@@ -44,7 +44,7 @@
                 body: dataBody
             }).then(function (response) {
                 console.log(
-                    "Response code: " + response.status + " " + response.statusText
+                    "Response code: " + response.status + " " + response.statusText + " " + response.responseText
                 );
                 return response;
             })
@@ -61,9 +61,10 @@
 
         function highscoreFiller(){
             students.forEach(student => {
-                console.log("sending score for student-->" + student);
+                var randno =  Math.floor((Math.random() * 100) + 1);
+                console.log("sending score for student-->" + student + " with score-->" + randno);
                 document.querySelector('#uuid').value = student;
-                document.querySelector('#score').value = Math.floor((Math.random() * 100) + 1);
+                document.querySelector('#score').value = randno;
                 sendAPI();
             })
         }

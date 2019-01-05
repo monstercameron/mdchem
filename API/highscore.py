@@ -23,18 +23,26 @@ def index():
 
             # retrieve all score entries and loop thought the returned list
             # query return the data ojects with the highest scores
-            for user in Data.query.filter_by(level_id=level_id).order_by( desc(Data.score) ).limit(10):
+            for student in Data.query.filter_by(level_id=level_id).order_by( desc(Data.score) ).limit(10):
 
                 # append python dictionaries into the list to be jsonified
-                data.append({'user': user.owner.email, 'score': user.score})
+                data.append({'user': student.owner.email, 'score': student.score})
 
             # return a json string in the response object to the client         
             response = jsonify(data)
 
         # if levelid parameter doesn't exist
         else:
-            response = Response(status=200)
-            response.data = '{"message":"global highscores not yet implemented"}'
+
+            # getting all students
+
+            for student in Student.query.order_by( desc(Student.score) ).limit(10):
+
+                # append python dictionaries into the list to be jsonified
+                data.append({'user': student.email, 'score': student.score})
+
+            # return a json string in the response object to the client         
+            response = jsonify(data)
 
     # if not GET methods, status 405 method not allowed with custom error message
     else:
@@ -43,6 +51,37 @@ def index():
 
     # cross origin code - not sure what exactly it does, needs research
     response.headers.add('Access-Control-Allow-Origin', '*')
+
+    # return built http response
+    return response
+
+@highscore.route('highscorebuildindex', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
+def build():
+    
+    # gettin all students
+    students = Student.query.all()
+
+    for student in students:
+
+        # var to hold the score per student
+        score = 0
+
+        # get all data objects belonging to the student
+        for data in Data.query.filter_by(owner=student).all():
+
+            # add all the scores together, note 1 data object per level
+            score += data.score
+        
+        student.score = score
+
+        # debud print statement
+        print('student-->',student.email,' | score-->',score)
+
+    # saving students back to data base
+    db.session.commit()
+
+    response = Response(status=200)
+    response.data = '{"message":"rebuilt highscore index"}'
 
     # return built http response
     return response
