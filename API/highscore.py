@@ -23,13 +23,10 @@ def index():
 
             # retrieve all score entries and loop thought the returned list
             # query return the data ojects with the highest scores
-            for user in Data.query.filter_by(level_id=level_id).order_by( desc(Data.score) ).limit(1):
+            for user in Data.query.filter_by(level_id=level_id).order_by( desc(Data.score) ).limit(10):
 
                 # append python dictionaries into the list to be jsonified
-                data.append(
-                    {'level_id': user.level_id,
-                    'user': user.owner.email,
-                    'score': user.score})
+                data.append({'user': user.owner.email, 'score': user.score})
 
             # return a json string in the response object to the client         
             response = jsonify(data)

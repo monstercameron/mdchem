@@ -20,6 +20,7 @@
     Data body</br>
     <textarea name="textarea" placeholder="Enter the text..." id="data">data</textarea></br>
     <input type="button"  value="submit" onclick="sendAPI();">
+    <input type="button"  value="fill 5 random" onclick="highscoreFiller();">
 
     <script>
         function sendAPI() {
@@ -29,7 +30,7 @@
             var levelidHeader = document.querySelector('#levelid').value;
             var scoreHeader = document.querySelector('#score').value;
             var dataBody = document.querySelector('#data').value;
-            alert("sending data-->" + dataBody + " | to URL-->" + url); 
+            // alert("sending data-->" + dataBody + " | to URL-->" + url); 
 
             fetch(url, {
                 method: 'post',
@@ -46,6 +47,24 @@
                     "Response code: " + response.status + " " + response.statusText
                 );
                 return response;
+            })
+        }
+
+        const students = [
+            "IS2mQ1a8UfVyZYxcZLFKpKgdhry1",
+            "U9KmSY5Uu5XceG87mDj5SiIRPys1",
+            "xtetXoHxRNPwcJ6Il5aClxTxk4t2",
+            "b5X82uY5PAM7hm6JgE4fpETsfaX2",
+            "u84cKFygRPPsMqn8ddfvEwe5F962",
+            "g6u4n1pwTOdvVvv3zHKdjaGTjY33"
+        ]
+
+        function highscoreFiller(){
+            students.forEach(student => {
+                console.log("sending score for student-->" + student);
+                document.querySelector('#uuid').value = student;
+                document.querySelector('#score').value = Math.floor((Math.random() * 100) + 1);
+                sendAPI();
             })
         }
 

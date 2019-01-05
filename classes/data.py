@@ -4,7 +4,7 @@ from config.config import db
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     level_id = db.Column(db.String(120))
-    score = db.Column(db.String(120))
+    score = db.Column(db.Integer)
     data = db.Column(db.TEXT)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
 
