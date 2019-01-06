@@ -7,6 +7,10 @@ body {
   font-family: "Krub", sans-serif;
 }
 
+.material-icons {
+  vertical-align: middle;
+}
+
 /*
  * Sidebar
  */
@@ -72,6 +76,7 @@ body {
 #email {
   text-transform: uppercase;
 }
+
 .code-text {
-  font-size: 14px;
+  font-size: 20px;
 }

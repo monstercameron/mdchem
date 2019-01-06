@@ -44,11 +44,9 @@
         </a>
         <li class="nav-item">
           <h4 class="pt-2">
-            Hi <span class="text-transform: capitalize">Earl Cameron</span>
-            <span id="email" class="collapse">mr.e.cameron@gmail.com</span>
-            <span id="secret" class="collapse"
-              >e02c8beeeabb489f8bd0b5eac0cce09b</span
-            >
+            Hi <span style="text-transform: capitalize">{{ name }}</span>
+            <span id="email" class="collapse">{{ email }}</span>
+            <span id="secret" class="collapse">{{ secret }}</span>
           </h4>
         </li>
       </ul>
@@ -137,7 +135,6 @@
         <!-- page body -->
         <div class="col-10 sidebar h-100">
           <main class="page sidebar-sticky p-2 pt-4">
-
             <!-- error panell -->
             <div id="error-view" class="container-fluid collapse">
               <div class="jumbotron text-center">
@@ -145,7 +142,6 @@
                 <u><h3>If problem persists contact administrator</h3></u>
                 <strong><h4 id="error"></h4></strong>
               </div>
-              
             </div>
 
             <!-- landing page -->
