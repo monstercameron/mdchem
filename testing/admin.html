@@ -47,7 +47,7 @@
             Hi <span class="text-transform: capitalize">Earl Cameron</span>
             <span id="email" class="collapse">mr.e.cameron@gmail.com</span>
             <span id="secret" class="collapse"
-              >d615972202784804ae8243aeac418dd4</span
+              >e02c8beeeabb489f8bd0b5eac0cce09b</span
             >
           </h4>
         </li>
@@ -72,20 +72,22 @@
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title"> Hey there... </h4>
+            <h4 class="modal-title">Hey there...</h4>
             <button type="button" class="close" data-dismiss="modal">
               &times;
             </button>
           </div>
           <!-- Modal body -->
-          <div class="modal-body"> 
-            Are you sure you want to
-              logout?
-          </div>
+          <div class="modal-body">Are you sure you want to logout?</div>
           <!-- Modal footer -->
           <div class="modal-footer">
             <form action="/logout" method="post">
-              <input type="hidden" name="{{ uid }}" /><button type="submit" class="btn btn-danger">YES</button>
+              <input type="hidden" name="{{ uid }}" /><button
+                type="submit"
+                class="btn btn-danger"
+              >
+                YES
+              </button>
             </form>
             <button type="button" class="btn btn-success" data-dismiss="modal">
               No
@@ -135,8 +137,19 @@
         <!-- page body -->
         <div class="col-10 sidebar h-100">
           <main class="page sidebar-sticky p-2 pt-4">
+
+            <!-- error panell -->
+            <div id="error-view" class="container-fluid collapse">
+              <div class="jumbotron text-center">
+                <h1>OOPS :/</h1>
+                <u><h3>If problem persists contact administrator</h3></u>
+                <strong><h4 id="error"></h4></strong>
+              </div>
+              
+            </div>
+
             <!-- landing page -->
-            <div id="landing-view" class="container-fluid collapse">
+            <div id="landing-view" class="container-fluid">
               <div class="col-sm-auto mx-auto">
                 <div class="jumbotron">
                   <img
@@ -223,7 +236,9 @@ function saveData() {
               <div id="student-container" class="jumbotron">
                 <h1>
                   Student data:
-                  <button id="student-data-refresh" class="btn btn-primary"><i class="material-icons"> autorenew </i></button>
+                  <button id="student-data-refresh" class="btn btn-primary">
+                    <i class="material-icons"> autorenew </i>
+                  </button>
                 </h1>
                 <table id="student-table" class="display">
                   <thead>
@@ -283,75 +298,114 @@ function saveData() {
                 </div>
               </div>
             </div>
+
             <!-- settings page -->
-            <div id="setting-view" class="container-fluid collapse">
+            <div id="settings-view" class="container-fluid collapse">
               <div class="jumbotron">
                 <h1>Settings:</h1>
                 <div class="form-group">
-
-
-
-
-
-
                   <!-- change password -->
                   <div class="container-fluid">
-                      <button data-toggle="collapse" data-target="#settings-account" class="btn btn-dark w-100">My Account</button>
+                    <button
+                      data-toggle="collapse"
+                      data-target="#settings-account"
+                      class="btn btn-dark w-100"
+                    >
+                      My Account
+                    </button>
 
-                      <div id="settings-account" class="collapse">
-                        <form id="update-form" class="form-group mt-5" action="/update">
-                          <h4 class="text-center">Update my password</h4>
-                          <input type="text" class="form-control" placeholder="email" name="email">
-                          <input type="text" class="form-control mt-1" placeholder="verify email" name="emailverify">
-                          <input type="password" class="form-control mt-1" placeholder="old password" name="oldpassword">
-                          <input type="password" class="form-control mt-1" placeholder="new password" name="password">
-                          <input type="password" class="form-control mt-1" placeholder="verify new password" name="pwverify">
-                          <input type="button" id="update-form-btn" class="btn btn-primary w-50 mt-1 w-100" value="update">
-                        </form>
-                      </div>
+                    <div id="settings-account" class="collapse">
+                      <form
+                        id="update-form"
+                        class="form-group mt-5"
+                        action="/update"
+                      >
+                        <h4 class="text-center">Update my password</h4>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="email"
+                          name="email"
+                        />
+                        <input
+                          type="text"
+                          class="form-control mt-1"
+                          placeholder="verify email"
+                          name="emailverify"
+                        />
+                        <input
+                          type="password"
+                          class="form-control mt-1"
+                          placeholder="old password"
+                          name="oldpassword"
+                        />
+                        <input
+                          type="password"
+                          class="form-control mt-1"
+                          placeholder="new password"
+                          name="password"
+                        />
+                        <input
+                          type="password"
+                          class="form-control mt-1"
+                          placeholder="verify new password"
+                          name="pwverify"
+                        />
+                        <input
+                          type="button"
+                          id="update-form-btn"
+                          class="btn btn-primary w-50 mt-1 w-100"
+                          value="update"
+                        />
+                      </form>
+                    </div>
                   </div>
-
-
-
-
 
                   <!-- admin admins -->
                   <div class="container-fluid mt-3">
-                    <button id="settings-admins-btn" data-toggle="collapse" data-target="#settings-admins" class="btn btn-dark w-100">Admin
-                      Access</button>
-                  
+                    <button
+                      id="settings-admins-btn"
+                      data-toggle="collapse"
+                      data-target="#settings-admins"
+                      class="btn btn-dark w-100"
+                    >
+                      Admin Access
+                    </button>
+
                     <div id="settings-admins" class="mt-3 collapse container">
-                  
-                      <div id="setting-admins-container">                
-                      </div>
-                  
-                      <div id="settings-admins-error" class="jumbotron bg-light mt-3 collapse text-center">
+                      <div id="setting-admins-container"></div>
+
+                      <div
+                        id="settings-admins-error"
+                        class="jumbotron bg-light mt-3 collapse text-center"
+                      >
                         <h1 class="display-4">oops!</h1>
                         <p class="lead">
                           Can't connect to API, contact administrator.
                         </p>
                       </div>
-
                     </div>
-
                   </div>
-
-
-
-
-
 
                   <!-- server logs -->
                   <div class="container-fluid mt-3">
-                    <button id="server-log" data-toggle="collapse" data-target="#settings-server" class="btn btn-dark w-100">Server</button>
-                  
+                    <button
+                      id="server-log"
+                      data-toggle="collapse"
+                      data-target="#settings-server"
+                      class="btn btn-dark w-100"
+                    >
+                      Server
+                    </button>
+
                     <div id="settings-server" class="collapse">
                       <div id="server-log" class="container-fluid mt-3 border">
-                        <div class="row" id="server-log-list">
-                        </div>
-                  
+                        <div class="row" id="server-log-list"></div>
                       </div>
-                      <div id=settings-server-error class="jumbotron bg-light mt-3 collapse text-center">
+                      <div
+                        id="settings-server-error"
+                        class="jumbotron bg-light mt-3 collapse text-center"
+                      >
                         <h1 class="display-4">oops!</h1>
                         <p class="lead">
                           Can't connect to API, contact administrator.
@@ -359,18 +413,15 @@ function saveData() {
                       </div>
                     </div>
                   </div>
-
-
-
-
-
                 </div>
               </div>
             </div>
+
             <!-- trend page -->
             <div id="trend-view" class="container-fluid collapse">
               <div class="jumbotron"><h1>Trends:</h1></div>
             </div>
+
             <!-- stats page -->
             <div id="stat-view" class="container-fluid collapse">
               <div class="jumbotron">
@@ -443,5 +494,6 @@ function saveData() {
     <script src="/testing/DataTables/datatables.js"></script>
     <script src="/testing/bootstrap-4.1.3-dist/js/bootstrap.js"></script>
     <script src="/testing/script.js"></script>
+    <script src="/testing/nav.js"></script>
   </body>
 </html>
