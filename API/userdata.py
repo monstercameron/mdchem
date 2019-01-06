@@ -16,7 +16,7 @@ def index():
 
     allowed_methods = ['POST']
 
-    token = request.headers['Authorization']
+    token = request.headers['token']
     email = request.headers['email']
     user_uuid = request.headers['uuid']
 

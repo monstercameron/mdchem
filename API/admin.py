@@ -10,7 +10,7 @@ admins = Blueprint('admins', __name__,)
 def index():
 
     # http header with auth token, quering database if toekn exist
-    token = request.headers['Authorization']
+    token = request.headers['token']
     token_obj = Token.query.filter_by(token=token).first()
 
     # debug message checking to see if the token exists

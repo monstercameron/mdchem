@@ -15,7 +15,7 @@ def index():
     if request.method == 'POST':
 
         # http headers from POST request
-        token = request.headers['Authorization']
+        token = request.headers['token']
         email = request.headers['email']
 
         # database queries to see if admin and corresponding toekn exists

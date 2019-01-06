@@ -26,7 +26,7 @@ def index():
 
     elif request.method == 'POST':
 
-        token = request.headers['Authorization']
+        token = request.headers['token']
         email = request.headers['email']
         admin = Admin_test.query.filter_by(email=email).first()
         token_store = Token.query.filter_by(owner_id=admin.id).first()

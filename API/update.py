@@ -15,7 +15,7 @@ def index():
     if request.method == 'POST':
 
          # update form
-        secret = request.headers['Authorization']
+        secret = request.headers['token']
         email = request.headers['email']
         emailverify = request.headers['emailverify']
         oldpassword = request.headers['oldpassword']

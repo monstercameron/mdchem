@@ -12,7 +12,7 @@ function getAllStudentData() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: document.querySelector("#secret").innerHTML,
+      token: document.querySelector("#secret").innerHTML,
       email: document.querySelector("#email").innerHTML
     }
   })
@@ -67,7 +67,7 @@ function fetchStudentData(uuid) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: document.querySelector("#secret").innerHTML,
+      token: document.querySelector("#secret").innerHTML,
       email: document.querySelector("#email").innerHTML,
       uuid: uuid
     }
@@ -125,7 +125,7 @@ function updatePassword() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: document.querySelector("#secret").innerHTML,
+      token: document.querySelector("#secret").innerHTML,
       email: emailVal,
       emailverify: emailverifyVal,
       oldpassword: oldpasswordVal,
@@ -160,7 +160,7 @@ function getAllAdmin() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: document.querySelector("#secret").innerHTML
+      token: document.querySelector("#secret").innerHTML
     }
   }).then(response => Promise.all([response, response.json()]))
   .then(([response, json]) => {
@@ -325,7 +325,7 @@ function saveNews() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: document.querySelector("#secret").innerHTML,
+      token: document.querySelector("#secret").innerHTML,
       email: document.querySelector("#email").innerHTML,
       target: "admin"
     },
@@ -341,7 +341,7 @@ function saveData() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "3eQNDaE57qY5SSG2JFN14nrCVRK2",
+      token: "3eQNDaE57qY5SSG2JFN14nrCVRK2",
       level_id: "3"
     },
     body: '{"correct":["x","y"]}'
@@ -356,7 +356,7 @@ function saveData(data) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "3eQNDaE57qY5SSG2JFN14nrCVRK2",
+      token: "3eQNDaE57qY5SSG2JFN14nrCVRK2",
       level_id: "3"
     },
     body: data

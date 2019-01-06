@@ -13,7 +13,7 @@ users = Blueprint('users', __name__,)
 @users.route('users', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
 
-    token = request.headers['Authorization']
+    token = request.headers['token']
     token_local = Token.query.filter_by(token=token).first()
     print('Token exists --> ', not token_local is None)
 

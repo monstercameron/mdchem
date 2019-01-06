@@ -168,7 +168,7 @@ function saveData() {
       headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: document.querySelector("#secret").innerHTML,
+          token: document.querySelector("#secret").innerHTML,
           level_id: "3"
       },
       body: '{"correct":["x","y"]}'
@@ -190,7 +190,7 @@ function saveData() {
       headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: document.querySelector("#secret").innerHTML,
+          token: document.querySelector("#secret").innerHTML,
           level_id: "3"
       },
       body: '{"correct":["x","y"]}'
