@@ -28,14 +28,14 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">
                             Email address</label>
-                        <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email">
+                        <input name="email" type="email" class="form-control {{email}}" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email" value="{{emailval}}">
                     </div>
                     <div class="form-group">
                         <label for="sel1">Security Question</label>
-                        <select class="form-control" id="sel1" name="question">
+                        <select class="form-control {{question}}" id="sel1" name="security">
                             <option selected disabled>Choose one</option>
-                            <option value="1">What is your mother’s maiden name?</option>
+                            <option selected value="1">What is your mother’s maiden name?</option>
                             <option value="2">What was the name of your first/current/favorite pet?</option>
                             <option value="3">What city were you born in?</option>
                             <option value="4">Where did you go to high school/college?</option>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label for="sel2">Security Question</label>
-                        <input class="form-control" id="sel2" name="answer">
+                        <input class="form-control  {{answer}}" id="sel2" name="answer">
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                     <small id="registerorrecover" class="form-text text-muted">

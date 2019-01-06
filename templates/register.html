@@ -1,78 +1,137 @@
-{% extends "base.html" %}
-{% block register %}
+{% extends "base.html" %} {% block register %}
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-    <ul class="navbar-nav">
-        <a class="navbar-brand" href="/">
-            <i class="material-icons md-36">
-                home
-            </i>
-        </a>
-    </ul>
+  <ul class="navbar-nav">
+    <a class="navbar-brand" href="/">
+      <i class="material-icons md-36"> home </i>
+    </a>
+  </ul>
 </nav>
 {% if error %}
 <!-- alert -->
 <div class="row">
-    <div class="container-fluid">
-        <div class="alert alert-warning col-8 mx-auto mt-2 text-center">
-            <strong>{{error}}</strong>
-        </div>
+  <div class="container-fluid">
+    <div class="alert alert-warning col-8 mx-auto mt-2 text-center">
+      <strong>{{ error }}</strong>
     </div>
+  </div>
 </div>
 {% endif %}
 <div class="container-fluid">
-    <!-- register page -->
-    <div class="row" style="visibility: ;">
-        <div class="col-sm-8 mx-auto mt-5 mb-5">
-            <form action="/register" method="post">
-                <!-- name -->
-                <div class="form-group">
-                    <div class="row">
-                        <div class="form-group col-6">
-                            <label for="firstNameInput">First</label>
-                            <input name="first" type="text" class="form-control" id="firstNameInput" aria-describedby="emailHelp"
-                                placeholder="Enter First Name" value="{{first}}">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="lastNameInput">Last</label>
-                            <input name="last" type="text" class="form-control" id="lastNameInput" aria-describedby="emailHelp"
-                                placeholder="Enter Last Name" value="{{last}}">
-                        </div>
-                    </div>
-                    <!-- email -->
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email" value="{{email}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2">Verify address</label>
-                        <input name="email-verify" type="email" class="form-control" id="exampleInputEmail2"
-                            aria-describedby="emailHelp" placeholder="Verify email">
-                        <small id="emailHelp" class="form-text text-muted">Make sure you are entering the same
-                            email.</small>
-                    </div>
-                    <!-- password -->
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input name="password" type="password" class="form-control" id="exampleInputPassword1"
-                            placeholder="Password">
-                        <small id="passwordHelp" class="form-text text-muted">6 or more characters, 1 uppercase and
-                            1 symbol</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword2">Verify Password</label>
-                        <input name="password-verify" type="password" class="form-control" id="exampleInputPassword2"
-                            placeholder="Verify password">
-                    </div>
-                    <!-- submit -->
-                    <button type="submit" class="btn btn-primary">Register</button>
-                    <small id="registerorrecover" class="form-text text-muted">
-                        <a href="/login">Do you want to login? </a> | <a href="/recover">Did you forget your
-                            password? </a>
-                    </small>
-                </div>
-            </form>
+  <!-- register page -->
+  <div class="row" style="visibility: ;">
+    <div class="col-sm-8 mx-auto mt-5 mb-5">
+      <form action="/register" method="post">
+        <!-- name -->
+        <div class="form-group">
+          <div class="row">
+            <div class="form-group col-6">
+              <label for="firstNameInput">First</label>
+              <input
+                name="first"
+                type="text"
+                class="form-control"
+                id="firstNameInput"
+                aria-describedby="emailHelp"
+                placeholder="Enter First Name"
+                value="{{ first }}"
+              />
+            </div>
+            <div class="form-group col-6">
+              <label for="lastNameInput">Last</label>
+              <input
+                name="last"
+                type="text"
+                class="form-control"
+                id="lastNameInput"
+                aria-describedby="emailHelp"
+                placeholder="Enter Last Name"
+                value="{{ last }}"
+              />
+            </div>
+          </div>
+          <!-- email -->
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input
+              name="email"
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+              value="{{ email }}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">Verify address</label>
+            <input
+              name="email-verify"
+              type="email"
+              class="form-control"
+              id="exampleInputEmail2"
+              aria-describedby="emailHelp"
+              placeholder="Verify email"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >Make sure you are entering the same email.</small
+            >
+          </div>
+          <!-- password -->
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input
+              name="password"
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Password"
+            />
+            <small id="passwordHelp" class="form-text text-muted"
+              >6 or more characters, 1 uppercase and 1 symbol</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword2">Verify Password</label>
+            <input
+              name="password-verify"
+              type="password"
+              class="form-control"
+              id="exampleInputPassword2"
+              placeholder="Verify password"
+            />
+          </div>
+          <!-- recovery question -->
+          <div class="form-group">
+            <label for="sel1">Security Question</label>
+            <select class="form-control" id="sel1" name="question">
+              <option selected disabled>Choose one</option>
+              <option selected value="1">What is your mother’s maiden name?</option>
+              <option value="2"
+                >What was the name of your first/current/favorite pet?</option
+              >
+              <option value="3">What city were you born in?</option>
+              <option value="4"
+                >Where did you go to high school/college?</option
+              >
+              <option value="5"
+                >Where is your favorite place to vacation?</option
+              >
+            </select>
+          </div>
+          <!-- recovery question answer -->
+          <div class="form-group">
+            <label for="sel2">Security Question</label>
+            <input class="form-control" id="sel2" name="answer" placeholder="Security Question"/>
+          </div>
+          <!-- submit -->
+          <button type="submit" class="btn btn-primary">Register</button>
+          <small id="registerorrecover" class="form-text text-muted">
+            <a href="/login">Do you want to login? </a> |
+            <a href="/recover">Did you forget your password? </a>
+          </small>
         </div>
+      </form>
     </div>
+  </div>
 </div>
 {% endblock %}

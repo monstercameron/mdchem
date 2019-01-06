@@ -3,7 +3,7 @@ from services.require_login import require
 from routes.index import simple_page
 from routes.login import login
 from routes.register import register
-from routes.recover import recover
+from routes.recover import recover,reset
 from routes.contact import contact
 from routes.admin import admin
 from routes.logout import logout

@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block recover %}
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <ul class="navbar-nav">
+    <a class="navbar-brand" href="/">
+      <i class="material-icons md-36"> home </i>
+    </a>
+  </ul>
+</nav>
+<div class="container-fluid">
+  {% if error %}
+  <!-- alert -->
+  <div class="row">
+    <div class="container-fluid">
+      <div class="alert alert-warning col-8 mx-auto mt-2 text-center">
+        <strong>{{ error }}</strong>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <!-- recovery page -->
+  <div class="row" style="visibility: visible;">
+    <div class="col-sm-8 mx-auto mt-5 mb-5">
+      <form action="/reset" method="post">
+        <!-- admin identifier -->
+        <input type="hidden" name="unique" value="{{ unique }}" />
+        <input type="hidden" name="security" value="{{ security }}" />
+        <input type="hidden" name="answer" value="{{ answer }}" />
+        <!-- password input -->
+        <div class="form-group">
+          <div class="form-group">
+            <label for="sel1">Password</label>
+            <input
+              type="password"
+              class="form-control  {{ password }}"
+              id="sel1"
+              name="password"
+            />
+          </div>
+          <small id="passwordHelp" class="form-text text-muted"
+            >6 or more characters, 1 uppercase and 1 symbol</small
+          >
+          <div class="form-group mt-5">
+            <label for="sel2">Verify Password</label>
+            <input
+              type="password"
+              class="form-control  {{ password }}"
+              id="sel2"
+              name="passwordv"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <small id="registerorrecover" class="form-text text-muted">
+            <a href="/login">Do you want to login? </a> |
+            <a href="/register">Do you want to register?</a>
+          </small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

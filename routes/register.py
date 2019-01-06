@@ -35,6 +35,8 @@ def index():
         email_verify = request.form['email-verify']
         password = request.form['password']
         password_verify = request.form['password-verify']
+        question = request.form['question']
+        answer = request.form['answer']
 
         # form validation
         if email_verify not in email:
@@ -55,7 +57,7 @@ def index():
         # hashing the password
         hashed_password = hash_password(password)
         # hashing the recovery question and secret response
-        hashed_recovery = hash_password(password)
+        hashed_recovery = hash_password(email+question+answer)
 
         # make admin object
         admin = Admin_test(email, first + ' ' + last, hashed_password, hashed_recovery)
