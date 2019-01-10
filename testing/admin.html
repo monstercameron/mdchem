@@ -46,7 +46,7 @@
           <h4 class="pt-2">
             Hi <span style="text-transform: capitalize">{{ name }}</span>
             <span id="email" class="collapse">{{ email }}</span>
-            <span id="secret" class="collapse">{{ secret }}</span>
+            <span id="secret" class="collapse">c11dada409d344778f9461000b512739</span>
           </h4>
         </li>
       </ul>
@@ -145,7 +145,7 @@
             </div>
 
             <!-- landing page -->
-            <div id="landing-view" class="container-fluid">
+            <div id="landing-view" class="container-fluid collapse">
               <div class="col-sm-auto mx-auto">
                 <div class="jumbotron">
                   <img
@@ -264,26 +264,43 @@ function saveData() {
               </div>
             </div>
             <!-- per student page -->
-            <div id="student-singular-view" class="container-fluid collapse">
+            <div id="student-singular-view" class="container-fluid collapse show">
               <div id="student-container" class="jumbotron">
                 <h1>Student data:</h1>
-                <div>email</div>
-                <div id="student-date-name"></div>
+                <div>email:</div>
+                <div id="student-date-name" class="bg-dark text-white rounded p-1 text-center">
+                  admin@text.com
+                </div>
 
-                <div>uid</div>
-                <div></div>
+                <div>uid:</div>
+                <div id="student-data-uuid" class="bg-dark text-white rounded p-1 text-center">
+                  randomuuidvaluefordemopurposes
+                </div>
 
-                <div>level 1-10 scores</div>
-                <div></div>
+                <div>level 1-10 scores:</div>
+                <div id="student-data-scores" class="bg-dark text-white rounded p-1 text-center">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          level
+                        </tr>
+                      </thead>
+                      <td>
+                        <tr>
+                          Score
+                        </tr>
+                      </td>
+                  </table>
+                </div>
 
-                <div>correct</div>
-                <div></div>
+                <div>correct:</div>
+                <div id="student-data-correct" class="bg-dark text-white rounded p-1 text-center"></div>
 
-                <div>incorret</div>
-                <div></div>
+                <div>incorret:</div>
+                <div id="student-data-incorrect" class="bg-dark text-white rounded p-1 text-center"></div>
 
-                <div>guess rate</div>
-                <div></div>
+                <div>guess rate:</div>
+                <div id="student-data-guess" class="bg-dark text-white rounded p-1 text-center"></div>
               </div>
               <div id="api-error" class="container-fluid collapse mx-auto">
                 <div class="jumbotron text-center">

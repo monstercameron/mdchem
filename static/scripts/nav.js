@@ -12,7 +12,7 @@ const baseUrlList = {
 }
 
 // current url
-var baseUrl = baseUrlList.remoteTesting
+var baseUrl = baseUrlList.local
 
 // contains list of view ids
 const listOfViews = [
