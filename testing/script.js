@@ -78,6 +78,10 @@ function fetchStudentData(uuid) {
         throw new Error(json.message);
       }
       fillStudentDataPage(json);
+      //init datatable after data is loaded
+      $("#student-data-matrix-table").DataTable();
+      //init datatable after data is loaded
+      $("#student-data-scores-table").DataTable();
     })
     .catch(exception => {
       var errorMap = new Map([

@@ -14,32 +14,42 @@ userdata = Blueprint('userdata', __name__,)
 @userdata.route('userdata', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
 
-    allowed_methods = ['POST']
-
+    # http headers
     token = request.headers['token']
-    email = request.headers['email']
-    user_uuid = request.headers['uuid']
+    uuid = request.headers['uuid']
 
-    admin = Admin_test.query.filter_by(email=email).first()
-    token_store = Token.query.filter_by(owner_id=admin.id).first()
-    owner = Student.query.filter_by(uid=user_uuid).first()
-    user_uuid_data = Data.query.filter_by(owner=owner).all()
+    # getting admin via back reference in token object
+    admin = Token.query.filter_by(token=token).first()
 
-    # for data in user_uuid_data:
-    # print(data.uid ,data.level_id, data.data)
+    # getting student via uuid
+    student = Student.query.filter_by(uid=uuid).first()
 
-    print(token, token_store.token)
 
-    if token not in token_store.token:
-        response = Response(status=401)
-        response.data = '{"message":"unauthorized"}'
+    if 'POST' in request.method:
+        if not admin is None and not student is None:
 
-    elif request.method in allowed_methods:
-        data = []
-        for userdata in user_uuid_data:
-            data.append({'level_id': userdata.level_id, 'data': userdata.data})
-        message = {'users': get_user_data(user_uuid), 'data': data}
-        response = jsonify(message)
+            # getting all data objects owned by specified student
+            student_data = Data.query.filter_by(owner=student).all()
+
+            data = []
+            
+            data.append({'email': student.email, 'uuid':student.uid})
+
+            print(student_data)
+
+            for userdata in student_data:
+                data.append({'level_id': userdata.level_id, 'data': userdata.data})
+            
+            
+            # message = {'users': get_user_data(user_uuid), 'data': data}
+            response = jsonify(data)
+
+        elif student is None:
+            response = Response(status=400)
+            response.data = '{"message":"bad student uuid"}'
+        else:
+            response = Response(status=401)
+            response.data = '{"message":"user not authorized"}'
 
     else:
         response = Response(status=405)
