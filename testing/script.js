@@ -78,10 +78,6 @@ function fetchStudentData(uuid) {
         throw new Error(json.message);
       }
       fillStudentDataPage(json);
-      //init datatable after data is loaded
-      $("#student-data-matrix-table").DataTable();
-      //init datatable after data is loaded
-      $("#student-data-scores-table").DataTable();
     })
     .catch(exception => {
       var errorMap = new Map([
@@ -95,11 +91,40 @@ function fetchStudentData(uuid) {
 
 // fills out single student data page
 function fillStudentDataPage(data) {
-  console.log("Populating Data For " + data.users.email);
+
+  //init datatable after data is loaded
+  matrix = $("#student-data-matrix-table").DataTable();
+  //init datatable after data is loaded
+  $("#student-data-scores-table").DataTable();
+
+
+  console.log('Filling data...');
+  console.log(data)
+  console.log("Populating Data For " + data[0].email);
 
   displayView("#student-singular-view");
 
-  document.querySelector("#student-date-name").innerHTML += data.users.email;
+  document.querySelector("#student-data-name").innerHTML = data[0].email;
+  document.querySelector("#student-data-uuid").innerHTML = data[0].uuid;
+
+  score_table = document.querySelector("#student-data-matrix-body");
+
+  for(var x = 1; x < data.length; x++){
+
+    matrix.row.add([
+      'He',
+      '21',
+      '4',
+      '2',
+      '400ms',
+      '78%'
+    ]).draw( false );
+    
+  }
+}
+
+function processTableRow(){
+  
 }
 
 //update password
