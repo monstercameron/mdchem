@@ -98,7 +98,7 @@ function fillStudentDataPage(data) {
 
   console.log("Filling data...");
   //console.log(data)
- console.log("Populating Data For " + data[0].email);
+  console.log("Populating Data For " + data[0].email);
 
   displayView("#student-singular-view");
 
@@ -107,198 +107,127 @@ function fillStudentDataPage(data) {
 
   var matrix = $("#student-data-matrix-table").DataTable();
 
-  elementlist = processTableRows(data);
+  elementDict = processTableRows(data);
+  console.log("elementDict");
+  console.log(elementDict);
 
-  //console.log(elementlist);
+  elementList = findAllElements(data);
+  console.log("elementlist");
+  console.log(elementList);
 
-  listOfElemsTitles = findAllElements(elementlist);
+  elementList.forEach(element => {
+    var myRow = [];
 
-  listOfElemsTitles.forEach(element => {
+    myRow.push(element);
+    myRow.push(elementDict[element + '_correct']);
+    myRow.push(elementDict[element + '_incorrect']);
+    myRow.push(elementDict[element + '_missed']);
+    myRow.push(100);
+    var total = elementDict[element + '_correct'] + elementDict[element + '_incorrect'];
+    myRow.push(elementDict[element + '_latency']/total);
 
-      var myRow = [];
+    
+    //console.log(myRow);
 
-      myRow.push(element);
-      
-      if (elementlist[0][element] == undefined)
-        myRow.push(0);
-      else
-        myRow.push(elementlist[0][element]);
-
-      if (elementlist[1][element] === undefined)
-        myRow.push(0);
-      else
-        myRow.push(elementlist[1][element]);
-
-      if (elementlist[2][element] === undefined)
-        myRow.push(0);
-      else
-        myRow.push(elementlist[2][element]);
-
-      
-      myRow.push(0);
-      
-      if (elementlist[1][element] === undefined && elementlist[1][element] === undefined ){
-        myRow.push(0);
-      }else{
-        var count = elementlist[0][element] + elementlist[1][element];
-        var totalDuration = elementlist[0][element] + elementlist[1][element];
-        myRow.push(totalDuration/count);
-      }
-
-
-      //console.log(myRow);
-
-      matrix.row.add(myRow).draw( false );
-
+    matrix.row.add(myRow).draw(false);
   });
-
-  //console.log(findAllElements(elementlist));
-  // for(var x = 1; x < data.length; x++){
-
-
-  // }
 }
 
 function processTableRows(data) {
-  let correct = {};
-  let incorrect = {};
-  let missed = {};
-  let elements = [];
+  myList = findAllElements(data);
 
-  //console.log(data);
+  myElementDict = {};
+  myList.forEach(element => {
+    myElementDict[element + "_correct"] = 0;
+    myElementDict[element + "_incorrect"] = 0;
+    myElementDict[element + "_missed"] = 0;
+    myElementDict[element + "_latency"] = 0;
+  });
 
   for (var x = 1; x < data.length; x++) {
     json = JSON.parse(data[x].data);
-    console.log('\n\n\n\n\n\n\n\njson lists');
-    console.log(json);
+    //console.log("\n\n\n\n\n\n\n\njson lists");
+    //console.log(json);
 
     for (var y = 0; y < json.data.length; y++) {
-      console.log('value of -->' + y);
-      console.log("test 123");
+      //console.log("value of -->" + y);
+      //console.log("test 123");
 
-        if(y == 0){
-          console.log("test 123");
+      if (y == 0) {
+        //console.log("test 123");
 
-            json.data[y].correct.forEach(element => {
-            //correct.[element{}...]
-            //console.log(element);
-
-            if (!elements.includes(element.element))
-              elements.push(element.element)
-  
-          });
-
-        }else if(y == 1){
-         
-            json.data[y].incorrect.forEach(element => {
-
-            if (!elements.includes(element.element))
-              elements.push(element.element)
-  
-          });
-
-        }else{
-
-            json.data[y].missed.forEach(element => {
-
-            if (!elements.includes(element.element))
-              elements.push(element.element)
-  
-          });
-
-        }
-
+        json.data[y].correct.forEach(element => {
+          if ( (element.element + "_correct") in myElementDict) {
+            myElementDict[element.element + "_correct"] += 1;
+            myElementDict[element.element + "_latency"] += element.duration;
+          } else {
+            myElementDict[element.element + "_correct"] = 1;
+            myElementDict[element.element + "_latency"] = element.duration;
+          }
+        });
+      } else if (y == 1) {
+        json.data[y].incorrect.forEach(element => {
+          if ( (element.element + "_incorrect") in myElementDict) {
+            myElementDict[element.element + "_incorrect"] += 1;
+            myElementDict[element.element + "_latency"] += element.duration;
+          } else {
+            myElementDict[element.element + "_incorrect"] = 1;
+            myElementDict[element.element + "_latency"] = element.duration;
+          }
+        });
+      } else {
+        json.data[y].missed.forEach(element => {
+          if ( (element.element + "_missed") in myElementDict) {
+            myElementDict[element.element + "_missed"] += 1;
+            myElementDict[element.element + "_latency"] += element.duration;
+          } else {
+            myElementDict[element.element + "_missed"] = 1;
+            myElementDict[element.element + "_latency"] = element.duration;
+          }
+        });
       }
-
+    }
   }
-
-  console.log('elements');
-  console.log(elements);
-
-  // for (var x = 1; x < data.length; x++) {
-  //   json = JSON.parse(data[x].data);
-
-  //   //console.log(json.data[x-1]);
-
-  //   a = 1;
-  //   json.data.forEach(json => {
-  //     //console.log(json);
-
-  //     if (a == 1) {
-  //       //console.log(json.correct);
-  //       json.correct.forEach(json => {
-  //         //console.log(json);
-  //         if (json.element in correct) {
-  //           correct[json.element] += 1;
-  //           correct[json.element + "_latency"] += json.duration;
-  //         } else {
-  //           correct[json.element] = 1;
-  //           correct[json.element + "_latency"] = json.duration;
-  //         }
-  //       });
-  //     } else if (a == 2) {
-  //       //console.log(json.correct);
-  //       json.incorrect.forEach(json => {
-  //         //console.log(json);
-  //         if (json.element in incorrect) {
-  //           incorrect[json.element] += 1;
-  //           incorrect[json.element + "_latency"] += json.duration;
-  //         } else {
-  //           incorrect[json.element] = 1;
-  //           incorrect[json.element + "_latency"] = json.duration;
-  //         }
-  //       });
-  //     } else if (a == 3) {
-  //       //console.log(json.correct);
-  //       json.missed.forEach(json => {
-  //         //console.log(json);
-  //         if (json.element in missed) {
-  //           missed[json.element] += 1;
-  //           missed[json.element + "_latency"] += json.duration;
-  //         } else {
-  //           missed[json.element] = 1;
-  //           missed[json.element + "_latency"] = json.duration;
-  //         }
-  //       });
-  //     }
-  //     a++;
-  //   });
-  // }
-
-  // console.log("correct -------->");
-  // console.log(correct);
-  // console.log("incorrect -------->");
-  // console.log(incorrect);
-  // console.log("missed -------->");
-  // console.log(missed);
-
-  return [elements];
+  return myElementDict;
 }
 
-function findAllElements(myList){
-  // assuems a list of dicts
-  theList = []
+function findAllElements(data) {
+  let elements = [];
 
-  myList.forEach(eDict => {
-    //console.log( Object.keys(eDict) )
-    Object.keys(eDict).forEach(key => {
-      theList.push(key);
-    });
+  for (var x = 1; x < data.length; x++) {
+    json = JSON.parse(data[x].data);
+    //console.log("\n\n\n\n\n\n\n\njson lists");
+    //console.log(json);
 
-  });
+    for (var y = 0; y < json.data.length; y++) {
+      //console.log("value of -->" + y);
+      //console.log("test 123");
 
-  dedup = new Set(theList);
-  dedup = Array.from(dedup);
+      if (y == 0) {
+        //console.log("test 123");
 
-  dedup.forEach(function(item, index){
-    if (item.includes("_latency")) {
-      dedup.splice(index, 1);
+        json.data[y].correct.forEach(element => {
+          if (!elements.includes(element.element))
+            elements.push(element.element);
+        });
+      } else if (y == 1) {
+        json.data[y].incorrect.forEach(element => {
+          if (!elements.includes(element.element))
+            elements.push(element.element);
+        });
+      } else {
+        json.data[y].missed.forEach(element => {
+          if (!elements.includes(element.element))
+            elements.push(element.element);
+        });
+      }
     }
+  }
 
-  });
+  //console.log("elements");
+  //console.log(elements);
 
-  return dedup;
-  //return theList;
+  return elements;
 }
 
 function elementBuilder(myArray, json) {
