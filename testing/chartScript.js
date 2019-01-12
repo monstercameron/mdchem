@@ -1,38 +1,6 @@
 var correctData = {};
 var incorrectData = {};
 
-var stats = document.querySelector("#stats");
-stats.addEventListener("click", function() {
-  // fetch all level data
-  fetch("http://localhost:5000/api/save")
-    .then(function(response) {
-      console.log(
-        "Response code: " + response.status + " " + response.statusText
-      );
-      return response;
-    })
-    .then(response => response.json())
-    .then(function(response) {
-      //console.log(response);
-      response.forEach(function(element) {
-        JSON.parse(element.data).forEach(function(answer) {
-          answer.correct.forEach(li => console.log(li));
-
-          // if (answer in correctData) {
-          //   correctData[answer] += 1;
-          // } else {
-          //   correctData[answer] = 1;
-          // }
-        });
-        // console.log(JSON.parse(element.data)[0]);
-        // console.log(JSON.parse(element.data)[1]);
-      });
-      // console.log(correctData);
-      // console.log(incorrectData);
-    })
-    .catch();
-});
-
 var ctx = document.getElementById("element").getContext("2d");
 //var myChart = new Chart(ctx, config);
 

@@ -36,7 +36,8 @@ const apiEndPoints = {
     admin: baseUrl + "/admin",
     users: baseUrl + "/users",
     update: baseUrl + "/update",
-    userdata: baseUrl + "/userdata"
+    userdata: baseUrl + "/userdata",
+    updatestudent: baseUrl + "/updatestudent"
 };
 
 // hide all views except target
@@ -111,7 +112,14 @@ document.querySelector("#students").addEventListener("click", function() {
 //student table onclick listener refresh button
 document.querySelector("#student-data-refresh").addEventListener("click", function() {
     getAllStudentData();
+    updateStudentDB();
   });
+
+//students onclick listener
+document.querySelector("#back_to_student_list").addEventListener("click", function() {
+  displayView("#student-view", "#students");
+  getAllStudentData();
+});
 
 //settings onclick listener
 document.querySelector("#settings").addEventListener("click", function() {

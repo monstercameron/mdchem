@@ -35,21 +35,21 @@ function getAllStudentData() {
 
 // gets student data then build the table
 function fillStudentTable(response) {
-  console.log(response);
+  console.log(response.length + ' studnents');
 
-  let studentList = document.querySelector(".student-list");
-  studentList.innerHTML = "";
+  let studentTable = $('#student-table').DataTable();
+  studentTable.clear().draw()
 
   //loop through the array object and append a new row to the student table
   response.forEach(element => {
-    studentList.innerHTML +=
-      "<tr><th><a href='#' onclick=\"fetchStudentData('" +
-      element.UID +
-      "')\">" +
+
+    studentTable.row.add([
+      "<a href='#' onclick=\"fetchStudentData(\'"+ element.UID +"\')\" >" +
       element.email +
-      "</a></th><th>" +
-      element.UID +
-      "</th></tr>";
+      "</a>",
+      element.UID
+    ]).draw(false);
+
   });
 
   //init datatable after data is loaded
@@ -91,10 +91,17 @@ function fetchStudentData(uuid) {
 
 // fills out single student data page
 function fillStudentDataPage(data) {
-  //init datatable after data is loaded
-  //matrix = $("#student-data-matrix-table").DataTable();
-  //init datatable after data is loaded
-  $("#student-data-scores-table").DataTable();
+  //console.log(data);
+  var scoreTable = $("#student-data-scores-table").DataTable();
+  scoreTable.clear().draw();
+  var scoreList = processTableScores(data);
+
+  //console.log('scoreList');
+  //console.log(scoreList);
+
+  Object.keys(scoreList).forEach(key => {
+    scoreTable.row.add([key, scoreList[key]]).draw(false);
+  });
 
   console.log("Filling data...");
   //console.log(data)
@@ -108,12 +115,12 @@ function fillStudentDataPage(data) {
   var matrix = $("#student-data-matrix-table").DataTable();
 
   elementDict = processTableRows(data);
-  console.log("elementDict");
-  console.log(elementDict);
+  //console.log("elementDict");
+  //console.log(elementDict);
 
   elementList = findAllElements(data);
-  console.log("elementlist");
-  console.log(elementList);
+  //console.log("elementlist");
+  //console.log(elementList);
 
   elementList.forEach(element => {
     var myRow = [];
@@ -189,6 +196,15 @@ function processTableRows(data) {
     }
   }
   return myElementDict;
+}
+
+function processTableScores(data){
+  var scores = {};
+  for (let index = 1; index < data.length; index++) {
+    //console.log(data[index]);
+    scores[data[index].level_id] = data[index].score;
+  }
+  return scores;
 }
 
 function findAllElements(data) {
@@ -507,3 +523,11 @@ function saveData(data) {
     .then(response => response.json())
     .then(response => alert("message:" + response.message));
 }
+
+
+
+var updateStudentDB = function() {
+  fetch(apiEndPoints.updatestudent)
+  .then(response => response.json())
+  .then(response => alert("message:" + response.message));
+};

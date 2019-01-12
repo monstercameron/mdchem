@@ -1,446 +1,425 @@
 {% extends "base.html" %} {% block admin %}
 <nav
-  class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top"
-  style="z-index:1031;"
+class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top"
+style="z-index:1031;"
 >
-  <!-- navbar -->
-  <ul class=" navbar-nav text-white">
-    <a id="dashboard" class="navbar-brand" href="#">
-      <img
-        src="/static/images/logo.png"
-        class="d-inline-block align-top"
-        width="72"
-        height=""
-        alt=""
-      />
-    </a>
-    <li class="nav-item">
-      <h4 class="pt-2">
-        Hi <span style="text-transform: capitalize">{{ name }}</span>
-        <span id="email" class="collapse">{{ email }}</span>
-        <span id="secret" class="collapse">{{ secret }}</span>
-      </h4>
-    </li>
-  </ul>
-
-  <ul class="navbar-nav text-white ml-auto">
-    <li class="nav-item">
-      <button
-        type="button"
-        class="btn btn-outline-light"
-        data-toggle="modal"
-        data-target="#myModal"
+<!-- navbar -->
+<ul class=" navbar-nav text-white">
+  <a id="dashboard" class="navbar-brand" href="#">
+    <img
+      src="/static/images/logo.png"
+      class="d-inline-block align-top"
+      width="72"
+      height=""
+      alt=""
+    />
+  </a>
+  <li class="nav-item">
+    <h4 class="pt-2">
+      Hi <span style="text-transform: capitalize">{{ name }}</span>
+      <span id="email" class="collapse">{{ email }}</span>
+      <span id="secret" class="collapse"
+        >{{secret}}</span
       >
-        LOGOUT
-      </button>
-    </li>
-  </ul>
+    </h4>
+  </li>
+</ul>
+
+<ul class="navbar-nav text-white ml-auto">
+  <li class="nav-item">
+    <button
+      type="button"
+      class="btn btn-outline-light"
+      data-toggle="modal"
+      data-target="#myModal"
+    >
+      LOGOUT
+    </button>
+  </li>
+</ul>
 </nav>
 <!-- quit modal -->
 <div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Hey there...</h4>
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
+<div class="modal-dialog">
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Hey there...</h4>
+      <button type="button" class="close" data-dismiss="modal">
+        &times;
+      </button>
+    </div>
+    <!-- Modal body -->
+    <div class="modal-body">Are you sure you want to logout?</div>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <form action="/logout" method="post">
+        <input type="hidden" name="{{ uid }}" /><button
+          type="submit"
+          class="btn btn-danger"
+        >
+          YES
         </button>
-      </div>
-      <!-- Modal body -->
-      <div class="modal-body">Are you sure you want to logout?</div>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <form action="/logout" method="post">
-          <input type="hidden" name="{{ uid }}" /><button
-            type="submit"
-            class="btn btn-danger"
-          >
-            YES
-          </button>
-        </form>
-        <button type="button" class="btn btn-success" data-dismiss="modal">
-          No
-        </button>
-      </div>
+      </form>
+      <button type="button" class="btn btn-success" data-dismiss="modal">
+        No
+      </button>
     </div>
   </div>
 </div>
+</div>
 <!-- page body -->
 <div class="container-fluid h-100">
-  <div class="row h-100 fixed-top">
-    <!-- sidebar -->
-    <div class="col-2 h-100 border-right sidebar">
-      <section class="col-12 sidebar-sticky">
-        <ul class="nav flex-column text-muted mt-2">
-          <li class="nav-item mt-3">
-            <a href="#options" data-toggle="collapse">
-              <i class="material-icons"> add_circle_outline </i> Data
-            </a>
-          </li>
-          <li class="nav-item">
-            <ul
-              id="options"
-              class="nav flex-column text-muted text-center collapse show "
-            >
-              <li class="nav-item border">
-                <a id="trends" href="#"> Trends </a>
-              </li>
-              <li class="nav-item border">
-                <a id="stats" href="#"> Statistics </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item mt-3">
-            <a href="#" id="students">
-              <i class="material-icons md-18 border"> people </i> Students
-            </a>
-          </li>
-          <li class="nav-item mt-3">
-            <a href="#" id="settings">
-              <i class="material-icons md-18 border"> list_alt </i> settings
-            </a>
-          </li>
-        </ul>
-      </section>
-    </div>
-    <!-- page body -->
-    <div class="col-10 sidebar h-100">
-      <main class="page sidebar-sticky p-2 pt-4">
-        <!-- error panell -->
-        <div id="error-view" class="container-fluid collapse">
-          <div class="jumbotron text-center">
-            <h1>OOPS :/</h1>
-            <u><h3>If problem persists contact administrator</h3></u>
-            <strong><h4 id="error"></h4></strong>
-          </div>
+<div class="row h-100 fixed-top">
+  <!-- sidebar -->
+  <div class="col-2 h-100 border-right sidebar">
+    <section class="col-12 sidebar-sticky">
+      <ul class="nav flex-column text-muted mt-2">
+        <li class="nav-item mt-3">
+          <a href="#options" data-toggle="collapse">
+            <i class="material-icons"> add_circle_outline </i> Data
+          </a>
+        </li>
+        <li class="nav-item">
+          <ul
+            id="options"
+            class="nav flex-column text-muted text-center collapse show "
+          >
+            <li class="nav-item border">
+              <a id="trends" href="#"> Trends </a>
+            </li>
+            <li class="nav-item border">
+              <a id="stats" href="#"> Statistics </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item mt-3">
+          <a href="#" id="students">
+            <i class="material-icons md-18 border"> people </i> Students
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <a href="#" id="settings">
+            <i class="material-icons md-18 border"> list_alt </i> settings
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+  <!-- page body -->
+  <div class="col-10 sidebar h-100">
+    <main class="page sidebar-sticky p-2 pt-4">
+      <!-- error panell -->
+      <div id="error-view" class="container-fluid collapse">
+        <div class="jumbotron text-center">
+          <h1>OOPS :/</h1>
+          <u><h4 id="error"></h4></u>
+          <strong
+            ><h3>If problem persists contact administrator</h3></strong
+          >
         </div>
+      </div>
 
-        <!-- landing page -->
-        <div id="landing-view" class="container-fluid">
-          <div class="col-sm-auto mx-auto">
-            <div class="jumbotron">
-              <img
-                src="/static/images/logo.png"
-                class="d-inline-block align-top"
-                width=""
-                height="128"
-                alt=""
-              />
-              <h1>Welcome to your dashboard</h1>
-              <h3>Test API:</h3>
-              <script>
-                hljs.initHighlightingOnLoad();
-              </script>
-              <div class="rounded border bg-light">
-                <pre><code class="bg-light code-text javascript">
-function saveData() {
-  fetch("http://localhost:5000/api/save", {
-      method: "POST",
-      headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          token: document.querySelector("#secret").innerHTML,
-          level_id: "3"
-      },
-      body: '{"correct":["x","y"]}'
-  }).then(response =>
-      alert(response.json()));
-}</code></pre>
-              </div>
-              <button class="btn btn-danger mt-1 w-100" onclick="saveNews();">
-                Save news to database
-              </button>
-              <div class="rounded border mt-3 bg-light">
-                <pre><code class="bg-light code-text">
-function saveData() {
-  fetch("http://localhost:5000/api/save", {
-      method: "POST",
-      headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          token: document.querySelector("#secret").innerHTML,
-          level_id: "3"
-      },
-      body: '{"correct":["x","y"]}'
-  }).then(response =>
-      alert(response.json()));
-}
-                  </code></pre>
-              </div>
-              <button
-                class="btn btn-danger mt-1 mb-3 w-100"
-                onclick="saveData();"
-              >
-                Save user data to database!
-              </button>
-              <div>
-                <h3>Save Custom data:</h3>
-                <input
-                  id="inputSaveData"
-                  type="text"
-                  class="form-control"
-                  value="'{...}'"
-                />
-                <button
-                  class="btn btn-danger mt-1 mb-3 w-100"
-                  onclick="saveData(document.querySelector('#inputSaveData').value);"
-                >
-                  Save user data to database!
-                </button>
-              </div>
-              <h3>News:</h3>
-              <ul class="news-feed">
-                <li>11.08.2018, added news feed</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- student list page -->
-        <div id="student-view" class="container-fluid collapse">
-          <div id="student-container" class="jumbotron">
-            <h1>
-              Student data:
-              <button id="student-data-refresh" class="btn btn-primary">
-                <i class="material-icons"> autorenew </i>
-              </button>
-            </h1>
-            <table id="student-table" class="display">
-              <thead>
-                <tr>
-                  <th>Email</th>
-
-                  <th>UID</th>
-                </tr>
-              </thead>
-              <tbody class="student-list"></tbody>
-              <tfoot>
-                <tr>
-                  <th>Email</th>
-
-                  <th>UID</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-          <div id="api-error" class="container-fluid collapse mx-auto">
-            <div class="jumbotron text-center">
-              <h1 class="display-4">oops!</h1>
-              <p class="lead">Can't connect to API, contact administrator.</p>
-            </div>
-          </div>
-        </div>
-        <!-- per student page -->
-        <div id="student-singular-view" class="container-fluid collapse">
-          <div id="student-container" class="jumbotron">
-            <h1>Student data:</h1>
-            <div>email</div>
-            <div id="student-date-name"></div>
-
-            <div>uid</div>
-            <div></div>
-
-            <div>level 1-10 scores</div>
-            <div></div>
-
-            <div>correct</div>
-            <div></div>
-
-            <div>incorret</div>
-            <div></div>
-
-            <div>guess rate</div>
-            <div></div>
-          </div>
-          <div id="api-error" class="container-fluid collapse mx-auto">
-            <div class="jumbotron text-center">
-              <h1 class="display-4">oops!</h1>
-              <p class="lead">Can't connect to API, contact administrator.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- settings page -->
-        <div id="settings-view" class="container-fluid collapse">
+      <!-- landing page -->
+      <div id="landing-view" class="container-fluid">
+        <div class="col-sm-auto mx-auto">
           <div class="jumbotron">
-            <h1>Settings:</h1>
-            <div class="form-group">
-              <!-- change password -->
-              <div class="container-fluid">
-                <button
-                  data-toggle="collapse"
-                  data-target="#settings-account"
-                  class="btn btn-dark w-100"
-                >
-                  My Account
-                </button>
+            <div class="row">
 
-                <div id="settings-account" class="collapse">
-                  <form
-                    id="update-form"
-                    class="form-group mt-5"
-                    action="/update"
-                  >
-                    <h4 class="text-center">Update my password</h4>
+
+              <!-- row 1-->
+              <div class="col-sm-4 border-bottom">
+                <img src="/static/images/logo.png" class="h-100 w-100" />
+              </div>
+              <div class="col-sm-8 text-right border-bottom">
+                <h1>Welcome to your dashboard!</h1>
+              </div>
+              
+              <!-- row 2 -->
+              <div class="col-sm-2 mt-3">
+                <button
+                  class="btn btn-primary btn-block"
+                  data-toggle="collapse"
+                  data-target="#news-form"
+                >
+                  <i class="material-icons"> note_add </i>
+                </button>
+              </div>
+              <div class="col-sm-10 mt-3"><h3>News</h3></div>
+
+
+                <!-- row 3 -->
+                <div id="news-form" class="collapse mt-2 col-sm-12">
+                  <form action="">
                     <input
-                      type="text"
+                      type="datetime"
+                      name="news-data"
+                      id="news-data"
                       class="form-control"
-                      placeholder="email"
-                      name="email"
                     />
-                    <input
-                      type="text"
-                      class="form-control mt-1"
-                      placeholder="verify email"
-                      name="emailverify"
-                    />
-                    <input
-                      type="password"
-                      class="form-control mt-1"
-                      placeholder="old password"
-                      name="oldpassword"
-                    />
-                    <input
-                      type="password"
-                      class="form-control mt-1"
-                      placeholder="new password"
-                      name="password"
-                    />
-                    <input
-                      type="password"
-                      class="form-control mt-1"
-                      placeholder="verify new password"
-                      name="pwverify"
-                    />
-                    <input
-                      type="button"
-                      id="update-form-btn"
-                      class="btn btn-primary w-50 mt-1 w-100"
-                      value="update"
-                    />
+                    <textarea
+                      placeholder="Add Update Here..."
+                      class="form-control"
+                    >
+                    </textarea>
                   </form>
                 </div>
-              </div>
 
-              <!-- admin admins -->
-              <div class="container-fluid mt-3">
-                <button
-                  id="settings-admins-btn"
-                  data-toggle="collapse"
-                  data-target="#settings-admins"
-                  class="btn btn-dark w-100"
+
+                <!-- row 4 -->
+                <div class="col-sm-12 text-right border-bottom mt-2">
+                  <ul class="news-feed">
+                    <li>11.08.2018, added news feed</li>
+                  </ul>
+                </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- student list page -->
+      <div id="student-view" class="container-fluid collapse">
+        <div id="student-container" class="jumbotron">
+          <div class="row">
+            <div class="col-sm-2 mb-5">
+              <i
+                id="student-data-refresh"
+                ,
+                class="material-icons border rounded btn btn-primary btn-block"
+              >
+                autorenew
+              </i>
+            </div>
+            <div class="col-sm-11"></div>
+          </div>
+
+          <table
+            id="student-table"
+            class="table table-striped table-bordered rounded"
+          >
+            <thead>
+              <tr>
+                <th>Email</th>
+
+                <th>UID</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr>
+                <th>Email</th>
+
+                <th>UID</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- per student page -->
+      <div id="student-singular-view" class="container-fluid collapse">
+        <div id="student-container" class="jumbotron">
+          <div class="row">
+            <div class="col-sm-2 mb-5">
+              <i
+                id="back_to_student_list"
+                ,
+                class="material-icons border rounded btn btn-primary btn-block"
+              >
+                arrow_back
+              </i>
+            </div>
+            <div class="col-sm-11"></div>
+            <div class="col-sm-1 border-bottom  p-2 text-center">
+              Email
+            </div>
+            <div
+              id="student-data-name"
+              class="col-sm-11 border-bottom p-2"
+            ></div>
+            <div class="col-sm-1 border-bottom p-2 text-center">UUID</div>
+            <div
+              id="student-data-uuid"
+              class="col-sm-11 border-bottom  p-2"
+            ></div>
+          </div>
+
+          <!-- student scores -->
+          <div id="student-data-scores" class="mt-4 text-center">
+            <table
+              id="student-data-scores-table"
+              class="table table-striped table-bordered w-100"
+              width="100%"
+            >
+              <thead>
+                <tr>
+                  <td>level</td>
+                  <td>Score</td>
+                </tr>
+              </thead>
+              <tbody id="student-data-scores"></tbody>
+            </table>
+          </div>
+
+          <!-- student data matrix -->
+          <div id="student-data-matrix" class="p-3 mt-5 text-center">
+            <table
+              id="student-data-matrix-table"
+              class="table table-striped table-bordered rounded w-100"
+              width="100%"
+            >
+              <thead>
+                <tr>
+                  <td>element</td>
+                  <td>correct</td>
+                  <td>incorrect</td>
+                  <td>missed</td>
+                  <td>accuracy</td>
+                  <td>latency</td>
+                </tr>
+              </thead>
+
+              <tbody id="student-data-matrix-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- settings page -->
+      <div id="settings-view" class="container-fluid collapse">
+        <div class="jumbotron">
+          <h1>Settings:</h1>
+          <div class="form-group">
+            <!-- change password -->
+            <div class="container-fluid">
+              <button
+                data-toggle="collapse"
+                data-target="#settings-account"
+                class="btn btn-dark w-100"
+              >
+                My Account
+              </button>
+
+              <div id="settings-account" class="collapse">
+                <form
+                  id="update-form"
+                  class="form-group mt-5"
+                  action="/update"
                 >
-                  Admin Access
-                </button>
+                  <h4 class="text-center">Update my password</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="email"
+                    name="email"
+                  />
+                  <input
+                    type="text"
+                    class="form-control mt-1"
+                    placeholder="verify email"
+                    name="emailverify"
+                  />
+                  <input
+                    type="password"
+                    class="form-control mt-1"
+                    placeholder="old password"
+                    name="oldpassword"
+                  />
+                  <input
+                    type="password"
+                    class="form-control mt-1"
+                    placeholder="new password"
+                    name="password"
+                  />
+                  <input
+                    type="password"
+                    class="form-control mt-1"
+                    placeholder="verify new password"
+                    name="pwverify"
+                  />
+                  <input
+                    type="button"
+                    id="update-form-btn"
+                    class="btn btn-primary w-50 mt-1 w-100"
+                    value="update"
+                  />
+                </form>
+              </div>
+            </div>
 
-                <div id="settings-admins" class="mt-3 collapse container">
-                  <div id="setting-admins-container"></div>
+            <!-- admin admins -->
+            <div class="container-fluid mt-3">
+              <button
+                id="settings-admins-btn"
+                data-toggle="collapse"
+                data-target="#settings-admins"
+                class="btn btn-dark w-100"
+              >
+                Admin Access
+              </button>
 
-                  <div
-                    id="settings-admins-error"
-                    class="jumbotron bg-light mt-3 collapse text-center"
-                  >
-                    <h1 class="display-4">oops!</h1>
-                    <p class="lead">
-                      Can't connect to API, contact administrator.
-                    </p>
-                  </div>
+              <div id="settings-admins" class="mt-3 collapse container">
+                <div id="setting-admins-container"></div>
+
+                <div
+                  id="settings-admins-error"
+                  class="jumbotron bg-light mt-3 collapse text-center"
+                >
+                  <h1 class="display-4">oops!</h1>
+                  <p class="lead">
+                    Can't connect to API, contact administrator.
+                  </p>
                 </div>
               </div>
+            </div>
 
-              <!-- server logs -->
-              <div class="container-fluid mt-3">
-                <button
-                  id="server-log"
-                  data-toggle="collapse"
-                  data-target="#settings-server"
-                  class="btn btn-dark w-100"
+            <!-- server logs -->
+            <div class="container-fluid mt-3">
+              <button
+                id="server-log"
+                data-toggle="collapse"
+                data-target="#settings-server"
+                class="btn btn-dark w-100"
+              >
+                Server
+              </button>
+
+              <div id="settings-server" class="collapse">
+                <div id="server-log" class="container-fluid mt-3 border">
+                  <div class="row" id="server-log-list"></div>
+                </div>
+                <div
+                  id="settings-server-error"
+                  class="jumbotron bg-light mt-3 collapse text-center"
                 >
-                  Server
-                </button>
-
-                <div id="settings-server" class="collapse">
-                  <div id="server-log" class="container-fluid mt-3 border">
-                    <div class="row" id="server-log-list"></div>
-                  </div>
-                  <div
-                    id="settings-server-error"
-                    class="jumbotron bg-light mt-3 collapse text-center"
-                  >
-                    <h1 class="display-4">oops!</h1>
-                    <p class="lead">
-                      Can't connect to API, contact administrator.
-                    </p>
-                  </div>
+                  <h1 class="display-4">oops!</h1>
+                  <p class="lead">
+                    Can't connect to API, contact administrator.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- trend page -->
-        <div id="trend-view" class="container-fluid collapse">
-          <div class="jumbotron"><h1>Trends:</h1></div>
+      <!-- trend page -->
+      <div id="trend-view" class="container-fluid collapse">
+        <div class="jumbotron text-center">
+          <h1>Trends Coming Soon!</h1>
         </div>
+      </div>
 
-        <!-- stats page -->
-        <div id="stat-view" class="container-fluid collapse">
-          <div class="jumbotron">
-            <h1>Stats:</h1>
-            <!-- inner div for data -->
-            <h3>Element Difficulty</h3>
-            <canvas id="element" class="border rounded w-100 bg-light"></canvas>
-            <button
-              class=" m-3 btn btn-primary"
-              onclick="updateChart(elemChart);"
-            >
-              update
-            </button>
-            <button
-              class=" m-3 btn btn-secondary"
-              onclick="removeData(elemChart);"
-            >
-              update
-            </button>
-            <!-- inner div for data -->
-            <h3>Level Difficulty</h3>
-            <canvas id="level" class="border rounded w-100 bg-light"></canvas>
-            <button
-              class=" m-3 btn btn-primary"
-              onclick="updateChart(levelChart);"
-            >
-              update
-            </button>
-            <button
-              class=" m-3 btn btn-secondary"
-              onclick="removeData(levelChart);"
-            >
-              update
-            </button>
-            <!-- inner div for data -->
-            <h3>Comprehension Vs Guessing (Class-wide)</h3>
-            <canvas
-              id="comprehension"
-              class="border rounded w-100 bg-light"
-            ></canvas>
-            <button
-              class=" m-3 btn btn-primary"
-              onclick="updateChart(compChart);"
-            >
-              update
-            </button>
-            <button
-              class=" m-3 btn btn-secondary"
-              onclick="removeData(compChart);"
-            >
-              update
-            </button>
-          </div>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
-          <script src="static/scripts/chartScript.js"></script>
+      <!-- stats page -->
+      <div id="stat-view" class="container-fluid collapse">
+        <div class="jumbotron text-center">
+          <h1>Stats Coming Soon!</h1>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
+</div>
 </div>
 {% endblock %}

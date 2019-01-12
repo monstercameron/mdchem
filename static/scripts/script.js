@@ -35,21 +35,21 @@ function getAllStudentData() {
 
 // gets student data then build the table
 function fillStudentTable(response) {
-  console.log(response);
+  console.log(response.length + ' studnents');
 
-  let studentList = document.querySelector(".student-list");
-  studentList.innerHTML = "";
+  let studentTable = $('#student-table').DataTable();
+  studentTable.clear().draw()
 
   //loop through the array object and append a new row to the student table
   response.forEach(element => {
-    studentList.innerHTML +=
-      "<tr><th><a href='#' onclick=\"fetchStudentData('" +
-      element.UID +
-      "')\">" +
+
+    studentTable.row.add([
+      "<a href='#' onclick=\"fetchStudentData(\'"+ element.UID +"\')\" >" +
       element.email +
-      "</a></th><th>" +
-      element.UID +
-      "</th></tr>";
+      "</a>",
+      element.UID
+    ]).draw(false);
+
   });
 
   //init datatable after data is loaded
@@ -78,24 +78,185 @@ function fetchStudentData(uuid) {
         throw new Error(json.message);
       }
       fillStudentDataPage(json);
-    })
-    .catch(exception => {
-      var errorMap = new Map([
-        [TypeError, "There was a problem fetching the response."],
-        [SyntaxError, "There was a problem parsing the response."],
-        [Error, exception.message]
-      ]).get(exception.constructor);
-      displayError(errorMap);
     });
+  // .catch(exception => {
+  //   var errorMap = new Map([
+  //     [TypeError, "There was a problem fetching the response."],
+  //     [SyntaxError, "There was a problem parsing the response."],
+  //     [Error, exception.message]
+  //   ]).get(exception.constructor);
+  //   displayError(errorMap);
+  // });
 }
 
 // fills out single student data page
 function fillStudentDataPage(data) {
-  console.log("Populating Data For " + data.users.email);
+  //console.log(data);
+  var scoreTable = $("#student-data-scores-table").DataTable();
+  scoreTable.clear().draw();
+  var scoreList = processTableScores(data);
+
+  //console.log('scoreList');
+  //console.log(scoreList);
+
+  Object.keys(scoreList).forEach(key => {
+    scoreTable.row.add([key, scoreList[key]]).draw(false);
+  });
+
+  console.log("Filling data...");
+  //console.log(data)
+  console.log("Populating Data For " + data[0].email);
 
   displayView("#student-singular-view");
 
-  document.querySelector("#student-date-name").innerHTML += data.users.email;
+  document.querySelector("#student-data-name").innerHTML = data[0].email;
+  document.querySelector("#student-data-uuid").innerHTML = data[0].uuid;
+
+  var matrix = $("#student-data-matrix-table").DataTable();
+
+  elementDict = processTableRows(data);
+  //console.log("elementDict");
+  //console.log(elementDict);
+
+  elementList = findAllElements(data);
+  //console.log("elementlist");
+  //console.log(elementList);
+
+  elementList.forEach(element => {
+    var myRow = [];
+
+    myRow.push(element);
+    myRow.push(elementDict[element + '_correct']);
+    myRow.push(elementDict[element + '_incorrect']);
+    myRow.push(elementDict[element + '_missed']);
+    myRow.push(100);
+    var total = elementDict[element + '_correct'] + elementDict[element + '_incorrect'];
+    myRow.push(elementDict[element + '_latency']/total);
+
+    
+    //console.log(myRow);
+
+    matrix.row.add(myRow).draw(false);
+  });
+}
+
+function processTableRows(data) {
+  myList = findAllElements(data);
+
+  myElementDict = {};
+  myList.forEach(element => {
+    myElementDict[element + "_correct"] = 0;
+    myElementDict[element + "_incorrect"] = 0;
+    myElementDict[element + "_missed"] = 0;
+    myElementDict[element + "_latency"] = 0;
+  });
+
+  for (var x = 1; x < data.length; x++) {
+    json = JSON.parse(data[x].data);
+    //console.log("\n\n\n\n\n\n\n\njson lists");
+    //console.log(json);
+
+    for (var y = 0; y < json.data.length; y++) {
+      //console.log("value of -->" + y);
+      //console.log("test 123");
+
+      if (y == 0) {
+        //console.log("test 123");
+
+        json.data[y].correct.forEach(element => {
+          if ( (element.element + "_correct") in myElementDict) {
+            myElementDict[element.element + "_correct"] += 1;
+            myElementDict[element.element + "_latency"] += element.duration;
+          } else {
+            myElementDict[element.element + "_correct"] = 1;
+            myElementDict[element.element + "_latency"] = element.duration;
+          }
+        });
+      } else if (y == 1) {
+        json.data[y].incorrect.forEach(element => {
+          if ( (element.element + "_incorrect") in myElementDict) {
+            myElementDict[element.element + "_incorrect"] += 1;
+            myElementDict[element.element + "_latency"] += element.duration;
+          } else {
+            myElementDict[element.element + "_incorrect"] = 1;
+            myElementDict[element.element + "_latency"] = element.duration;
+          }
+        });
+      } else {
+        json.data[y].missed.forEach(element => {
+          if ( (element.element + "_missed") in myElementDict) {
+            myElementDict[element.element + "_missed"] += 1;
+            myElementDict[element.element + "_latency"] += element.duration;
+          } else {
+            myElementDict[element.element + "_missed"] = 1;
+            myElementDict[element.element + "_latency"] = element.duration;
+          }
+        });
+      }
+    }
+  }
+  return myElementDict;
+}
+
+function processTableScores(data){
+  var scores = {};
+  for (let index = 1; index < data.length; index++) {
+    //console.log(data[index]);
+    scores[data[index].level_id] = data[index].score;
+  }
+  return scores;
+}
+
+function findAllElements(data) {
+  let elements = [];
+
+  for (var x = 1; x < data.length; x++) {
+    json = JSON.parse(data[x].data);
+    //console.log("\n\n\n\n\n\n\n\njson lists");
+    //console.log(json);
+
+    for (var y = 0; y < json.data.length; y++) {
+      //console.log("value of -->" + y);
+      //console.log("test 123");
+
+      if (y == 0) {
+        //console.log("test 123");
+
+        json.data[y].correct.forEach(element => {
+          if (!elements.includes(element.element))
+            elements.push(element.element);
+        });
+      } else if (y == 1) {
+        json.data[y].incorrect.forEach(element => {
+          if (!elements.includes(element.element))
+            elements.push(element.element);
+        });
+      } else {
+        json.data[y].missed.forEach(element => {
+          if (!elements.includes(element.element))
+            elements.push(element.element);
+        });
+      }
+    }
+  }
+
+  //console.log("elements");
+  //console.log(elements);
+
+  return elements;
+}
+
+function elementBuilder(myArray, json) {
+  json.correct.forEach(json => {
+    build = {};
+
+    if (myArray.some(e => e.name == json.name)) {
+      //console.log(json);
+      // e.correct += 1;
+      // e.
+    } else {
+    }
+  });
 }
 
 //update password
@@ -116,7 +277,7 @@ function updatePassword() {
     "#update-form input[name='pwverify']"
   ).value;
 
-  console.log("Onclick --> Updating Password")
+  console.log("Onclick --> Updating Password");
   console.log("For " + emailVal + " From " + apiEndPoints.update);
 
   // fetch data to fill student table
@@ -162,26 +323,26 @@ function getAllAdmin() {
       "Content-Type": "application/json",
       token: document.querySelector("#secret").innerHTML
     }
-  }).then(response => Promise.all([response, response.json()]))
-  .then(([response, json]) => {
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-    getAllAdminUpdatePage(json);
   })
-  .catch(exception => {
-    var errorMap = new Map([
-      [TypeError, "There was a problem fetching the response."],
-      [SyntaxError, "There was a problem parsing the response."],
-      [Error, exception.message]
-    ]).get(exception.constructor);
-    displayError(errorMap);
-  });
+    .then(response => Promise.all([response, response.json()]))
+    .then(([response, json]) => {
+      if (!response.ok) {
+        throw new Error(json.message);
+      }
+      getAllAdminUpdatePage(json);
+    })
+    .catch(exception => {
+      var errorMap = new Map([
+        [TypeError, "There was a problem fetching the response."],
+        [SyntaxError, "There was a problem parsing the response."],
+        [Error, exception.message]
+      ]).get(exception.constructor);
+      displayError(errorMap);
+    });
 }
 
 // inserts a list of admins to the control panel
-function getAllAdminUpdatePage(response){
-
+function getAllAdminUpdatePage(response) {
   adminList = document.querySelector("#setting-admins-container");
   adminList.innerHTML = "";
 
@@ -238,28 +399,27 @@ function roleTranslate(element) {
 //settings server log onclick listener refresh button
 function getLogs() {
   console.log("Fetching Server Logs From " + apiEndPoints.logs);
-    // fetch data to fill server log
-    fetch(apiEndPoints.logs)
-      .then(response => Promise.all([response, response.json()]))
-      .then(([response, json]) => {
-          if (!response.ok) {
-              throw new Error(json.message);
-          }
-          getLogsUpdatePage(json);
-      })
-      .catch(exception => {
-        var errorMap = new Map([
-          [TypeError, "There was a problem fetching the response."],
-          [SyntaxError, "There was a problem parsing the response."],
-          [Error, exception.message]
-        ]).get(exception.constructor);
-        displayError(errorMap);
-      });
-        
+  // fetch data to fill server log
+  fetch(apiEndPoints.logs)
+    .then(response => Promise.all([response, response.json()]))
+    .then(([response, json]) => {
+      if (!response.ok) {
+        throw new Error(json.message);
+      }
+      getLogsUpdatePage(json);
+    })
+    .catch(exception => {
+      var errorMap = new Map([
+        [TypeError, "There was a problem fetching the response."],
+        [SyntaxError, "There was a problem parsing the response."],
+        [Error, exception.message]
+      ]).get(exception.constructor);
+      displayError(errorMap);
+    });
 }
 
 // adds the server log to the panel
-function getLogsUpdatePage(response){
+function getLogsUpdatePage(response) {
   console.log(response);
   log_list = document.querySelector("#server-log-list");
   log_list.innerHTML = "";
@@ -286,37 +446,36 @@ function getLogsUpdatePage(response){
 }
 
 //fetches the news
-function getAllNews(){
-  console.log("Fetching News From " + apiEndPoints.news)
+function getAllNews() {
+  console.log("Fetching News From " + apiEndPoints.news);
 
   fetch(apiEndPoints.news)
-  .then(response => Promise.all([response, response.json()]))
-  .then(([response, json]) => {
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-    getAllNewsUpdatePanel(json);
-  })
-  .catch(exception => {
-    var errorMap = new Map([
-      [TypeError, "There was a problem fetching the response."],
-      [SyntaxError, "There was a problem parsing the response."],
-      [Error, exception.message]
-    ]).get(exception.constructor);
-    displayError(errorMap);
-  });
-
+    .then(response => Promise.all([response, response.json()]))
+    .then(([response, json]) => {
+      if (!response.ok) {
+        throw new Error(json.message);
+      }
+      getAllNewsUpdatePanel(json);
+    })
+    .catch(exception => {
+      var errorMap = new Map([
+        [TypeError, "There was a problem fetching the response."],
+        [SyntaxError, "There was a problem parsing the response."],
+        [Error, exception.message]
+      ]).get(exception.constructor);
+      displayError(errorMap);
+    });
 }
 
 //fills news in panel
-function getAllNewsUpdatePanel(response){
+function getAllNewsUpdatePanel(response) {
   console.log(response);
   document.querySelector(".news-feed").innerHTML = "";
-    response.forEach(function(element) {
-      //console.log(element);
-      document.querySelector(".news-feed").innerHTML +=
-        "<li>" + element.date + ", " + element.message + "</li>";
-    });
+  response.forEach(function(element) {
+    //console.log(element);
+    document.querySelector(".news-feed").innerHTML +=
+      "<li>" + element.date + ", " + element.message + "</li>";
+  });
 }
 
 function saveNews() {
@@ -364,3 +523,11 @@ function saveData(data) {
     .then(response => response.json())
     .then(response => alert("message:" + response.message));
 }
+
+
+
+var updateStudentDB = function() {
+  fetch(apiEndPoints.updatestudent)
+  .then(response => response.json())
+  .then(response => alert("message:" + response.message));
+};

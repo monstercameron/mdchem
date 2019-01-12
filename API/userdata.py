@@ -38,7 +38,9 @@ def index():
             print(student_data)
 
             for userdata in student_data:
-                data.append({'level_id': userdata.level_id, 'data': userdata.data})
+                data.append({'level_id': userdata.level_id,
+                 'data': userdata.data,
+                 'score': userdata.score})
             
             
             # message = {'users': get_user_data(user_uuid), 'data': data}
