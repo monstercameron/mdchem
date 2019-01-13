@@ -20,6 +20,10 @@ else:
 firebase_admin.initialize_app(cred)
 
 
+def delete_user(uid):
+    auth.delete_user(uid)
+
+
 def get_user_data(uid):
     user = auth.get_user(uid)
     print('Successfully fetched user data: {0}'.format(user.uid))
@@ -45,3 +49,8 @@ def new_user_to_database():
             student = Student(fire_base_user.uid, fire_base_user.email)
             db.session.add(student)
             db.session.commit()
+
+
+def delete_all_users():
+    for fire_base_user in auth.list_users().iterate_all():
+        auth.delete_user(fire_base_user.uid)

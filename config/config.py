@@ -22,4 +22,11 @@ else:
 app.config['SQLALCHEMY_ECHO'] = True
 app.secret_key = "TheKeyCanBeAString"
 CORS(app, resources=r'/api/*')
+
+
 db = SQLAlchemy(app)
+
+
+from services.services import make_service
+# making services
+service = make_service(app)
