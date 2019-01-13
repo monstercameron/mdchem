@@ -131,7 +131,13 @@ function fillStudentDataPage(data) {
     myRow.push(elementDict[element + '_missed']);
     myRow.push(100);
     var total = elementDict[element + '_correct'] + elementDict[element + '_incorrect'];
-    myRow.push(elementDict[element + '_latency']/total);
+    
+    if(elementDict[element + '_latency'] != 0){
+      total = elementDict[element + '_latency']/total.toFixed(2)
+    }else{
+      total = 0;
+    }
+    myRow.push(total);
 
     
     //console.log(myRow);
