@@ -2,6 +2,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
+import logging
+from logging.handlers import RotatingFileHandler
+
 
 
 local = True
@@ -23,9 +26,15 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.secret_key = "TheKeyCanBeAString"
 CORS(app, resources=r'/api/*')
 
-
 db = SQLAlchemy(app)
 
+
+formatter = logging.Formatter(
+        "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
+handler = RotatingFileHandler('logs/log.txt', maxBytes=10000000, backupCount=5)
+handler.setLevel(logging.NOTSET)
+handler.setFormatter(formatter)
+app.logger.addHandler(handler)
 
 from services.services import make_service
 # making services

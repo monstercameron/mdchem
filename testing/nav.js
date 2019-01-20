@@ -12,7 +12,7 @@ const baseUrlList = {
 }
 
 // current url
-var baseUrl = baseUrlList.local
+var baseUrl = baseUrlList.local;
 
 // contains list of view ids
 const listOfViews = [
@@ -85,7 +85,7 @@ function displayError(error) {
   ;
 }
 //fetch the news on window load
-window.onload = getAllNews;
+window.onload = getAllNews();
 
 //dashboard onclick listener
 document.querySelector("#dashboard").addEventListener("click", function() {

@@ -16,8 +16,6 @@ def index():
 
          # update form
         secret = request.headers['token']
-        email = request.headers['email']
-        emailverify = request.headers['emailverify']
         oldpassword = request.headers['oldpassword']
         password = request.headers['password']
         pwverify = request.headers['pwverify']
@@ -27,25 +25,16 @@ def index():
         if token != None:
 
             # form validation
-            if emailverify not in email:
-                response = Response(status=400)
-                response.data = '''{"message":"email doesn't match"}'''
-
-            elif pwverify not in password:
+            if pwverify not in password:
                 response = Response(status=400)
                 response.data = '''{"message":"password doesn't match"}'''
-            
-            # validate the email format
-            elif not validate_email(email):
-                response = Response(status=400)
-                response.data = '''{"message":"email isn't properly formatted"}'''
-            
+
             # validate the password format
             elif not validate_password(password):
                 response = Response(status=400)
                 response.data = '''{"message":"password isn't properly formatted"}'''
 
-            #validates old password
+            # validates old password
             elif not verify_password(token.owner.password, oldpassword):
                 response = Response(status=400)
                 response.data = '''{"message":"There is something wrong with the current password"}'''
@@ -55,7 +44,7 @@ def index():
                 db.session.commit()
                 response = Response(status=200)
                 response.data = '''{"message":"admin password updated"}'''
-        
+
             return response
         else:
             response = Response(status=401)

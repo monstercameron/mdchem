@@ -18,7 +18,7 @@ def index():
 
         # apache log
         # f = open("/var/log/apache2/error.log", "r")
-        f = open("/home/monstercameron/Desktop/python/mdchem/main.py", "r")
+        f = open("/home/monstercameron/Desktop/python/mdchem/logs/log.txt", "r")
         for x in f:
             print(x)
             data.append({"num":line_number, "line":x})

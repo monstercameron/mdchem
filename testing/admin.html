@@ -47,7 +47,7 @@
             Hi <span style="text-transform: capitalize">{{ name }}</span>
             <span id="email" class="collapse">{{ email }}</span>
             <span id="secret" class="collapse"
-              >cc7a41ffa58c4238991840b97af33ff3</span
+              >7100aca2d2434950b264f607f4753c14</span
             >
           </h4>
         </li>
@@ -178,19 +178,24 @@
 
                       <!-- row 3 -->
                       <div id="news-form" class="collapse mt-2 col-sm-12">
-                        <form action="">
+                          <label for="news-data">Add Target:</label>
                           <input
-                            type="datetime"
-                            name="news-data"
+                            name="news-target"
                             id="news-data"
-                            class="form-control"
+                            class="form-control mb-2"
                           />
+                          <label for="news-text">Add message:</label>
                           <textarea
+                            id="news-text"
                             placeholder="Add Update Here..."
-                            class="form-control"
+                            class="form-control mb-2"
                           >
                           </textarea>
-                        </form>
+                          <button 
+                            class="btn btn-primary btn-block"
+                            onclick="sendNews()">
+                            Submit
+                          </button>
                       </div>
 
 
@@ -337,18 +342,6 @@
                         action="/update"
                       >
                         <h4 class="text-center">Update my password</h4>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="email"
-                          name="email"
-                        />
-                        <input
-                          type="text"
-                          class="form-control mt-1"
-                          placeholder="verify email"
-                          name="emailverify"
-                        />
                         <input
                           type="password"
                           class="form-control mt-1"
