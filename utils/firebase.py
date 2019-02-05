@@ -41,12 +41,30 @@ def get_user_data_all():
 
 
 def new_user_to_database():
-    for fire_base_user in auth.list_users().iterate_all():
 
-        print('new_user_to_database --> User: ', fire_base_user.uid, ',User email:', fire_base_user.email)
-        # print('student --> ' , Student(fire_base_user.uid, fire_base_user.email).__dict__)
-        if Student.query.filter_by(uid=fire_base_user.uid).first() is None:
-            student = Student(fire_base_user.uid, fire_base_user.email)
+    print('Checking Firebase For New User.')
+
+    # get all users stored int he database
+    all_students = Student.query.all()
+
+    # firebase user
+    for user in auth.list_users().iterate_all():
+        add_me = False
+
+        # loops through all the stored students
+        for student in all_students:
+            add_me = True
+
+            # checks to see if the uid already exists on the local database
+            if student.uid == user.uid:
+                add_me = False
+                # stops looping through list when a match is found for a certan uid
+                break
+
+        # if there is no match then add a new student
+        if add_me:
+            # creating new student with email and uid
+            student = Student(user.uid, user.email)
             db.session.add(student)
             db.session.commit()
 

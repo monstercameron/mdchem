@@ -19,8 +19,10 @@ def index():
 
         # apache log
         # f = open("/var/log/apache2/error.log", "r")
-        copyfile("/var/www/mdchem/mdchem/nohup.out","/var/www/mdchem/mdchem/nohup.out.bk")
-        f = open("/var/www/mdchem/mdchem/nohup.out.bk","r").read().split('\n')
+        f = open("/home/monstercameron/Desktop/python/mdchem/logs/log.txt", "r")
+        # copyfile("/var/www/mdchem/mdchem/nohup.out","/var/www/mdchem/mdchem/nohup.out.bk")
+        # f = open("/var/www/mdchem/mdchem/nohup.out.bk","r").read().split('\n')
+    
         for x in f:
            print(x)
            if x == "":

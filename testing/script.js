@@ -35,21 +35,23 @@ function getAllStudentData() {
 
 // gets student data then build the table
 function fillStudentTable(response) {
-  console.log(response.length + ' studnents');
+  console.log(response.length + " studnents");
 
-  let studentTable = $('#student-table').DataTable();
-  studentTable.clear().draw()
+  let studentTable = $("#student-table").DataTable();
+  studentTable.clear().draw();
 
   //loop through the array object and append a new row to the student table
   response.forEach(element => {
-
-    studentTable.row.add([
-      "<a href='#' onclick=\"fetchStudentData(\'"+ element.UID +"\')\" >" +
-      element.email +
-      "</a>",
-      element.UID
-    ]).draw(false);
-
+    studentTable.row
+      .add([
+        "<a href='#' onclick=\"fetchStudentData('" +
+          element.UID +
+          "')\" >" +
+          element.email +
+          "</a>",
+        element.UID
+      ])
+      .draw(false);
   });
 
   //init datatable after data is loaded
@@ -126,20 +128,20 @@ function fillStudentDataPage(data) {
     var myRow = [];
 
     myRow.push(element);
-    myRow.push(elementDict[element + '_correct']);
-    myRow.push(elementDict[element + '_incorrect']);
-    myRow.push(elementDict[element + '_missed']);
+    myRow.push(elementDict[element + "_correct"]);
+    myRow.push(elementDict[element + "_incorrect"]);
+    myRow.push(elementDict[element + "_missed"]);
     myRow.push(100);
-    var total = elementDict[element + '_correct'] + elementDict[element + '_incorrect'];
-    
-    if(elementDict[element + '_latency'] != 0){
-      total = elementDict[element + '_latency']/total.toFixed(2)
-    }else{
+    var total =
+      elementDict[element + "_correct"] + elementDict[element + "_incorrect"];
+
+    if (elementDict[element + "_latency"] != 0) {
+      total = elementDict[element + "_latency"] / total.toFixed(2);
+    } else {
       total = 0;
     }
     myRow.push(total);
 
-    
     //console.log(myRow);
 
     matrix.row.add(myRow).draw(false);
@@ -170,7 +172,7 @@ function processTableRows(data) {
         //console.log("test 123");
 
         json.data[y].correct.forEach(element => {
-          if ( (element.element + "_correct") in myElementDict) {
+          if (element.element + "_correct" in myElementDict) {
             myElementDict[element.element + "_correct"] += 1;
             myElementDict[element.element + "_latency"] += element.duration;
           } else {
@@ -180,7 +182,7 @@ function processTableRows(data) {
         });
       } else if (y == 1) {
         json.data[y].incorrect.forEach(element => {
-          if ( (element.element + "_incorrect") in myElementDict) {
+          if (element.element + "_incorrect" in myElementDict) {
             myElementDict[element.element + "_incorrect"] += 1;
             myElementDict[element.element + "_latency"] += element.duration;
           } else {
@@ -190,7 +192,7 @@ function processTableRows(data) {
         });
       } else {
         json.data[y].missed.forEach(element => {
-          if ( (element.element + "_missed") in myElementDict) {
+          if (element.element + "_missed" in myElementDict) {
             myElementDict[element.element + "_missed"] += 1;
             myElementDict[element.element + "_latency"] += element.duration;
           } else {
@@ -204,7 +206,7 @@ function processTableRows(data) {
   return myElementDict;
 }
 
-function processTableScores(data){
+function processTableScores(data) {
   var scores = {};
   for (let index = 1; index < data.length; index++) {
     //console.log(data[index]);
@@ -453,9 +455,9 @@ function getLogsUpdatePage(response) {
 
 //fetches the news
 function getAllNews() {
-  console.log("Fetching News From " + apiEndPoints.news);
+  console.log("Fetching News From " + apiEndPoints.news+'?target=update');
 
-  fetch(apiEndPoints.news)
+  fetch(apiEndPoints.news+'?target=update')
     .then(response => Promise.all([response, response.json()]))
     .then(([response, json]) => {
       if (!response.ok) {
@@ -471,6 +473,47 @@ function getAllNews() {
       ]).get(exception.constructor);
       displayError(errorMap);
     });
+}
+
+function sendNews() {
+  let send = false;
+
+  let target = document.querySelector("#news-data");
+  let message = document.querySelector("#news-text");
+
+  if (target.value != "" && message.value != "") send = true;
+
+  if (send) {
+    fetch(apiEndPoints.news, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        key: document.querySelector("#secret").innerHTML,
+        target: target.value
+      },
+      body: message.value
+    })
+      .then(response => Promise.all([response, response.json()]))
+      .then(([response, json]) => {
+        if (!response.ok) {
+          throw new Error(json.message);
+        }
+        target.value = '';
+        message.value = '';
+        getAllNews();
+      })
+      .catch(exception => {
+        var errorMap = new Map([
+          [TypeError, "There was a problem fetching the response."],
+          [SyntaxError, "There was a problem parsing the response."],
+          [Error, exception.message]
+        ]).get(exception.constructor);
+        displayError(errorMap);
+      });
+  } else {
+    alert("Fill in the target and/or body field");
+  }
 }
 
 //fills news in panel
@@ -530,10 +573,8 @@ function saveData(data) {
     .then(response => alert("message:" + response.message));
 }
 
-
-
 var updateStudentDB = function() {
   fetch(apiEndPoints.updatestudent)
-  .then(response => response.json())
-  .then(response => alert("message:" + response.message));
+    .then(response => response.json())
+    .then(response => alert("message:" + response.message));
 };

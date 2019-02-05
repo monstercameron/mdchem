@@ -4,9 +4,7 @@ from flask import jsonify
 from flask import Blueprint
 from utils.firebase import new_user_to_database
 
-
 updatestudent = Blueprint('updatestudent', __name__,)
-
 
 @updatestudent.route('updatestudent', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
