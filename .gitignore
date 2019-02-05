@@ -5,3 +5,5 @@ secret/
 temp/
 
 .old/
+
+credentials.py

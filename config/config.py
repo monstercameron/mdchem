@@ -4,28 +4,23 @@ from flask_cors import CORS
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+from credentials import *
 
+# get file directories
+static = os.getcwd()+'/static'
+templates = os.getcwd()+'/templates'
 
-
-local = False
-
-if local:
-    static = os.getcwd()+'/static'
-    templates = os.getcwd()+'/templates'
-    app = Flask(__name__, static_folder=static, template_folder=templates)
-    app.config['DEBUG'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://springuser:ThePassword@localhost:3306/db_example'
-else:
-    static = '/var/www/mdchem/mdchem/static'
-    templates = '/var/www/mdchem/mdchem/templates'
-    app = Flask(__name__, static_folder=static, template_folder=templates)
-    app.config['DEBUG'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:mdchem123!@localhost:3306/mdchem'
-
+# confifure flask core
+app = Flask(__name__, static_folder=static, template_folder=templates)
+app.config['SQLALCHEMY_DATABASE_URI'] = mysql
+app.config['DEBUG'] = True
 app.config['SQLALCHEMY_ECHO'] = True
-app.secret_key = "TheKeyCanBeAString"
+app.secret_key = secret_key
+
+#  setup flask cors for cross domain api calls
 CORS(app, resources=r'/api/*')
 
+# init mysql orm module
 db = SQLAlchemy(app)
 
 # formatter = logging.Formatter(
@@ -35,7 +30,7 @@ db = SQLAlchemy(app)
 # handler.setFormatter(formatter)
 # app.logger.addHandler(handler)
 
-from services.services import make_service
+# from services.services import make_service
 # from services.services import make_service
 # making services
 # service = make_service(app)
