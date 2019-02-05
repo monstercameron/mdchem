@@ -39,4 +39,4 @@ app.register_blueprint(highscore, url_prefix='/api/')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="68.183.111.180", port=5000)

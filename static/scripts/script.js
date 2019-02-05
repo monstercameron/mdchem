@@ -133,11 +133,11 @@ function fillStudentDataPage(data) {
     var total = elementDict[element + '_correct'] + elementDict[element + '_incorrect'];
     
     if(elementDict[element + '_latency'] != 0){
-      total = elementDict[element + '_latency']/total.toFixed(2)
+      total = elementDict[element + '_latency']/total
     }else{
       total = 0;
     }
-    myRow.push(total);
+    myRow.push(total.toFixed(2));
 
     
     //console.log(myRow);
