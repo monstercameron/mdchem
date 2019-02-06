@@ -60,7 +60,7 @@ def index():
             else:
 
                 # on fail, prompt the user that the credentials are incorrect
-                return render_template('recover.html', title=title, error="Bad Security Duestin and Password")
+                return render_template('recover.html', title=title, error="Bad Security Question / Password")
 
         # if the user deson't exist
         else:
@@ -88,9 +88,9 @@ def reset():
                 security = request.form['security']
                 answer = request.form['answer']
 
-                if pw in pwv:
-                        return render_template('reset.html', title=title, error="Password Couldn'y be verified", password="is-invalid")
-                elif validate_password(pw):
+                if pw != pwv:
+                        return render_template('reset.html', title=title, error="Passwords Don't Match", password="is-invalid")
+                elif not validate_password(pw):
                         return render_template('reset.html', title=title, error="Password Is Not Valid", password="is-invalid")
                 else:
                         salt = generate_salt()
@@ -98,6 +98,7 @@ def reset():
                         admin.password = hash_password_with_salt(pw, salt)
                         recovery = admin.email+security+answer
                         admin.recover = hash_password_with_salt(recovery, salt)
+                        db.session.commit()
                         return redirect(url_for('login.index'))
 
     # display reset form

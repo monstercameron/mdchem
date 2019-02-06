@@ -7,7 +7,7 @@
     <title>API Tester Recv</title>
   </head>
   <body>
-    <input type="text" value="http://localhost:5000/api/userdata" id="url" />
+    <input type="text" value="http://68.183.111.180/api/userdata" id="url" />
     <input type="button" value="Recv" onclick="apiRecv()" />
     <h1>Display request here:</h1>
     <pre id="view"></pre>
@@ -20,8 +20,8 @@
         fetch(url,{
           method: 'POST',
           headers: {
-            'token':'c11dada409d344778f9461000b512739',
-            'uuid':'IS2mQ1a8UfVyZYxcZLFKpKgdhry1'
+            'token':'642779149a4b4388a4e5829db31d130c',
+            'uuid':'6AfwViDnLTVgPcGesqxNk5yLTtW2'
           },
           body: '',
         })
@@ -35,7 +35,7 @@
           .then(response => {
             console.log(response);
             response.forEach(element => {
-              //console.log(JSON.parse(element.data));
+              console.log(JSON.parse(element.data));
             });
           });
       }
