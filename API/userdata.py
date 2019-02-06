@@ -25,7 +25,7 @@ def index():
     student = Student.query.filter_by(uid=uuid).first()
 
 
-    if 'POST' in request.method:
+    if request.method == 'POST':
         if not admin is None and not student is None:
 
             # getting all data objects owned by specified student

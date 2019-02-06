@@ -7,8 +7,8 @@ This script handles script handles the UI
 //base url for api
 const baseUrlList = {
     local: "http://localhost:5000/api",
-    remote: "http://68.183.111.180/api",
-    remoteTesting: "http://68.183.111.180:5000/api"
+    remote: "https://68.183.111.180/api",
+    remoteTesting: "https://68.183.111.180:5000/api"
 }
 
 // current url
