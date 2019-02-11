@@ -38,16 +38,18 @@ def index():
         score = request.headers['score']
         body = request.data
 
+        student = Student.query.filter_by(uid=uid).first()
+
         # if the queryied list of students isn't empty
-        if Student.query.filter_by(uid=uid).all():
+        if student != None:
 
             # if the student had data objects saved already with level id
-            if Data.query.filter_by(level_id=level, owner=Student.query.filter_by(uid=uid).first()).first() == None:
+            if Data.query.filter_by(level_id=level, owner=student).first() == None:
                 
                 # creating new data object
-                data = Data(level, body, score, Student.query.filter_by(uid=uid).first())
+                data = Data(level, body, score, student)
 
-                print('with levelid------->',data.__dict__)
+                #  print('with levelid------->',data.__dict__)
 
                 # saving to database
                 db.session.add(data)
@@ -57,7 +59,7 @@ def index():
             else:
 
                 # retrieving data object
-                data = Data.query.filter_by(level_id=level, owner=Student.query.filter_by(uid=uid).first()).first()
+                data = Data.query.filter_by(level_id=level, owner=student).first()
                 
                 # update the data object and and save to database
                 data.data = body
@@ -66,7 +68,7 @@ def index():
                 data.score = score
                 
                 # debug output    
-                print('Without levelid-------> ', data.__dict__)
+                # print('Without levelid-------> ', data.__dict__)
 
                 # custom response message
                 message = {'message': 'data updated'}

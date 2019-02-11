@@ -56,4 +56,6 @@ def index():
             db.session.commit()
             print('current admin data -->', admin.__dict__)
             return redirect('/admin')
+        else:
+            return render_template('login.html', title=title, error="Bad Password")
     return render_template('login.html', title=title)

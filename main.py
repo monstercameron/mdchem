@@ -1,4 +1,5 @@
 from config.config import app
+from credentials import *
 from services.require_login import require
 from routes.index import simple_page
 from routes.login import login
@@ -39,4 +40,4 @@ app.register_blueprint(highscore, url_prefix='/api/')
 
 
 if __name__ == '__main__':
-    app.run(host="68.183.111.180", port=5000)
+    run(app)

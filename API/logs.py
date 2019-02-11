@@ -7,9 +7,7 @@ logs = Blueprint('logs', __name__,)
 
 @logs.route('logs', methods=['GET', 'POST', 'DELETE', 'OPTION', 'PUT'])
 def index():
-
-    allowed_methods = ['GET']
-
+    
     # testing
     # request.args.get
     if request.method == 'GET':

@@ -68,7 +68,6 @@ function fetchStudentData(uuid) {
       Accept: "application/json",
       "Content-Type": "application/json",
       token: document.querySelector("#secret").innerHTML,
-      email: document.querySelector("#email").innerHTML,
       uuid: uuid
     }
   })
@@ -78,15 +77,15 @@ function fetchStudentData(uuid) {
         throw new Error(json.message);
       }
       fillStudentDataPage(json);
-    });
-  // .catch(exception => {
-  //   var errorMap = new Map([
-  //     [TypeError, "There was a problem fetching the response."],
-  //     [SyntaxError, "There was a problem parsing the response."],
-  //     [Error, exception.message]
-  //   ]).get(exception.constructor);
-  //   displayError(errorMap);
-  // });
+    })
+  .catch(exception => {
+    var errorMap = new Map([
+      [TypeError, "There was a problem fetching the response."],
+      [SyntaxError, "There was a problem parsing the response."],
+      [Error, exception.message]
+    ]).get(exception.constructor);
+    displayError(errorMap);
+  });
 }
 
 // fills out single student data page
