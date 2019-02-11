@@ -8,7 +8,7 @@ from credentials import *
 
 # get file directories
 static = os.getcwd()+'/static'
-templates = os.getcwd()+'/templates'
+templates = '/var/www/mdchem/mdchem/templates'
 
 # confifure flask core
 app = Flask(__name__, static_folder=static, template_folder=templates)

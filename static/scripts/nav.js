@@ -7,7 +7,7 @@ This script handles script handles the UI
 //base url for api
 const baseUrlList = {
     local: "http://localhost:5000/api",
-    remote: "https://68.183.111.180/api",
+    remote: "https://www.rrmi.co/api",
     remoteTesting: "https://68.183.111.180:5000/api"
 }
 
