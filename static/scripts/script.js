@@ -113,6 +113,9 @@ function fillStudentDataPage(data) {
   document.querySelector("#student-data-uuid").innerHTML = data[0].uuid;
 
   var matrix = $("#student-data-matrix-table").DataTable();
+  
+  //added per freer's bug fix
+  matrix.clear().draw();
 
   elementDict = processTableRows(data);
   //console.log("elementDict");
