@@ -6,4 +6,6 @@ temp/
 
 .old/
 
-credentials.py
+credentials.py*
+
+nohup.out
