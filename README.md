@@ -1,9 +1,7 @@
 # MDChem
 * * *
 ## URLS
-* http://mdchem.ddns.net/ (test server)
-* http://chemtutor.hopto.org/ (pythonanywhere test server)
-* http://68.183.111.180/ (API testing server)
+* https://www.rrmi.co/ 
 * * *
 ## objectives:
 * Store user data from a Unity based game using REST.
