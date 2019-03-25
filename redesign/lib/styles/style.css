@@ -1,0 +1,94 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+/* text sizes */
+.text-size-1 {
+    font-size: 1rem;
+}
+
+.text-size-2 {
+    font-size: 1.2rem;
+}
+
+.text-size-3 {
+    font-size: 1.4rem;
+}
+
+.text-size-4 {
+    font-size: 1.6rem;
+}
+
+.text-size-5 {
+    font-size: 1.8rem;
+}
+
+.text-size-6 {
+    font-size: 2rem;
+}
+
+/* Pastel color scheme a */
+.colors-pastel-1 {
+    background-color: #9DABDD;
+}
+
+.colors-pastel-2 {
+    background-color: #70ae98;
+}
+
+.colors-pastel-3 {
+    background-color: #ecbe7a;
+}
+
+.colors-pastel-4 {
+    background-color: #e58d88;
+}
+
+.colors-pastel-5 {
+    background-color: rgb(192, 204, 245);
+}
+
+.colors-pastel-6 {
+    background-color: #adddce;
+}
+
+.colors-pastel-7 {
+    background-color: #8ac0de;
+}
+
+.colors-pastel-8 {
+    background-color: #e6b655;
+}
+
+.colors-pastel-9 {
+    background-color: #f0a35e;
+}
+
+.colors-pastel-10 {
+    background-color: #ca7e8d;
+}
+
+.colors-pastel-11 {
+    background-color: #af6e4e;
+}
+.colors-pastel-12 {
+    background-color: #9c8ade;
+}
+
+/* section min height */
+.section-custom {
+    min-height: 512px;
+}
+
+.section-maximise {
+    height: 100%;
+    widows: 100%;
+}
+
+/* slide show fixes */
+.carousel-inner {
+    height: 100%;
+}
