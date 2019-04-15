@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     ]
     let studentTable = new Tables('#student-table', cols);
     studentTable.addRow(['mr.e.cameron@gmail.com', '999999999999999']);
+    getAllStudents(studentTable);
 });
 
-const getAllStudents = () => {
-    fetch('https://www.rrmi.co', {
+const getAllStudents = (table) => {
+    fetch('https://www.rrmi.co/api/users', {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -20,6 +21,18 @@ const getAllStudents = () => {
           email: document.querySelector("#email").innerHTML
         }
       })
+      .then( response => response.json())
+      .then( json => {
+        //console.log(json);
+        //jsonToRow(json, table)
+      })
+}
+
+const jsonToRow = (json, table) => {
+    for (let index = 0; index < json.length; index++) {
+        console.log(json[index].email)
+        table.addRow([json[index].email, json[index].UID]);
+    }
 }
 
 class Tables {
