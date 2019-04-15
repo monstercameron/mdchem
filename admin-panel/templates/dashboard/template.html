@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>{{title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/admin-panel/lib/bootstrap-4.3.1-dist/css/bootstrap.css">
     <script src="/admin-panel/lib/jquery/jquery.js"></script>
@@ -15,18 +15,42 @@
     <script src="/admin-panel/lib/DataTables/datatables.js"></script>
     <script src="/admin-panel/lib/ckeditor5-build-classic/ckeditor.js"></script>
     <link rel="stylesheet" href="/admin-panel/styles/style.css">
+    <script src="/admin-panel/templates/dashboard/functions.js"></script>
 </head>
 
 <body>
+    <div style="visibility:hidden;">
+            <div id="secret"> {{secret}} </div>
+            <div id="email"> {{email}} </div>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="container-fluid section-height border p-5">
-                total students
+                <!-- total students
                 high scores
                 completion rate
                 total game time
                 avg level attempts
                 avg guess rate
+                quickest finger
+                longest streak
+                most attempts
+             -->
+                <div class="row p-2">
+                    <script src="/admin-panel/templates/dashboard/highscrore.js"></script>
+                    <div id="highscore" class="border col-sm-4">
+                    </div>
+                    <div class="border col-sm-4">
+                        plugin b
+                    </div>
+                    <div class="border col-sm-4">
+                        plugin c
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <script src="/admin-panel/templates/dashboard/student-table.js"></script>
+                    <div id="student-table" class="border w-100 p-2"></div>
+                </div>
             </div>
         </div>
     </div>
