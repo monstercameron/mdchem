@@ -7,3 +7,7 @@ temp/
 .old/
 
 credentials.py
+
+.vscode/
+
+.DS_Store
