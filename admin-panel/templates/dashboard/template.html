@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/admin-panel/lib/bootstrap-4.3.1-dist/css/bootstrap.css">
+    <script src="/admin-panel/lib/jquery/jquery.js"></script>
+    <script src="/admin-panel/lib/popper.js/popper.js"></script>
+    <script src="/admin-panel/lib/bootstrap-4.3.1-dist/js/bootstrap.js"></script>
+    <script src="/admin-panel/lib/chart.js/chart.js"></script>
+    <link rel="stylesheet" href="/admin-panel/lib/DataTables/datatables.css">
+    <script src="/admin-panel/lib/DataTables/datatables.js"></script>
+    <script src="/admin-panel/lib/ckeditor5-build-classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="/admin-panel/styles/style.css">
+    <script src="/admin-panel/templates/dashboard/functions.js"></script>
+    <script src="/admin-panel/templates/dashboard/Tables.js"></script>
+</head>
+
+<body>
+    <div style="visibility:hidden;">
+        <div id="secret"> f6f95fc645a247d792962bbce4488849</div>
+        <div id="email"> mr.e.cameron@gmail.com </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="container-fluid section-height border p-5">
+                <!-- total students
+                completion rate
+                total game time
+                avg level attempts
+                avg guess rate
+                quickest finger
+                longest streak
+                most attempts
+             -->
+                <div class="row p-2">
+                    <script src="/admin-panel/templates/dashboard/highscrore.js"></script>
+                    <div id="highscore" class="border col-sm-8">
+                    </div>
+                    <script src="/admin-panel/templates/dashboard/Completion.js"></script>
+                    <div id="completion" class="border col-sm-4 p-0">
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <script src="/admin-panel/templates/dashboard/student-table.js"></script>
+                    <div id="student-table" class="border w-100 p-2"></div>
+                </div>
+                <div id="single-user-tables" class="row p-2 collapse">
+                    <div class="row border w-100 p-2 mx-0">
+                        <div class="col-sm-12 p-0 mt-1 mb-3">
+                            <div class="col-sm-2 p-0 mr-auto">
+                                <button id="close-single-user-table" class="btn btn-danger btn-block">
+                                    close
+                                </button>
+                            </div>
+                        </div>
+                        <div id="studentEmail" class="col-sm-4 border text-center text-capitalize">email</div>
+                        <div id="studentEmailVal" class="col-sm-8"></div>
+                        <div id="studentUid" class="col-sm-4 border text-center text-capitalize">UID</div>
+                        <div id="studentUidVal" class="col-sm-8"></div>
+                        <div id="studentTotal" class="col-sm-4 border text-center text-capitalize">Total</div>
+                        <div id="studentTotalVal" class="col-sm-8"></div>
+                        <script src="/admin-panel/templates/dashboard/single-student-table.js"></script>
+                        <div class="col-sm-12 text-center text-capitalize mt-3">
+                            <h3>Level Scores</h3>
+                        </div>
+                        <div id="studentTableVal" class="col-sm-12 mt-1 border p-1">
+                        </div>
+                        <div class="col-sm-12 text-center text-capitalize mt-3">
+                            <h3>Level Data</h3>
+                        </div>
+                        <div id="studentTableValElem" class="col-sm-12 mt-1 border p-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
